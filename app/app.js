@@ -84,6 +84,7 @@ var app ={
         this.gameOverScreen = new GameOverScreen("GAME OVER");
         this.playScreen = new PlayScreen("Use Arrow Keys to Move");   
         this.dataScreen = new DataScreen(this.mousePos.x, this.mousePos.y);
+        this.characterSelectScreen = new CharacterSelect("Select Your Character");
 
         this.timerText = new createjs.Text("Timer: " + app.elapsedTime.toFixed(2), defaultFont, colors.dark);
         this.timerText.visible = false;

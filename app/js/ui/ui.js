@@ -31,6 +31,18 @@ var ui =
         newButton.on("mousedown", callbackFunc);
 
         return newButton;
+    },
+
+    addDefaultBox: function(parent,x,y)
+    {
+        var BOX_WIDTH = 100;
+        var BOX_HEIGHT = 100;
+
+        var shape = new createjs.Shape();
+        shape.graphics.beginFill("#000").drawRect(x,y, BOX_WIDTH, BOX_HEIGHT);
+        parent.addChild(shape);
+
+        return shape;
     }
 }
 
