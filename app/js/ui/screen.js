@@ -1,6 +1,6 @@
 function TitleScreen(screenTitleText){
     createjs.Container.call(this);
-    ui.makeDefaultText(this, screenTitleText, SCREEN_WIDTH/2, 50);
+    ui.makeTitleText(this, screenTitleText, SCREEN_WIDTH/2, 75);
     ui.makeDefaultTextButton(this, "Instructions", SCREEN_WIDTH/4, 400, function(){
         app.stage.removeChild(app.titleScreen);
         app.stage.addChild(app.instructionScreen);
