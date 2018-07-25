@@ -1,6 +1,6 @@
 function TitleScreen(screenTitleText){
     createjs.Container.call(this);
-    ui.makeDefaultText(this, screenTitleText, SCREEN_WIDTH/2, 50);
+    ui.makeTitleText(this, screenTitleText, SCREEN_WIDTH/2, 75);
     ui.makeDefaultTextButton(this, "Instructions", SCREEN_WIDTH/4, 400, function(){
         app.stage.removeChild(app.titleScreen);
         app.stage.addChild(app.instructionScreen);
@@ -52,10 +52,11 @@ function CharacterSelect(screenTitleText){
     ui.addDefaultBox(this,275,250); //Character 3
     ui.addDefaultBox(this,425,250); //Character 4
 
-    ui.addDefaultBox(this,75, 370) //P1
+    ui.addDefaultBox(this,75, 370); //P1
     ui.makeDefaultText(this, "Player 1", 125,500);
-    ui.addDefaultBox(this,625,370) //P2
-    ui.makeDefaultText(this, "Player 2", 675, 500)
+    ui.addDefaultBox(this,625,370); //P2
+    ui.makeDefaultText(this, "Player 2", 675, 500);
+
     ui.makeDefaultTextButton(this, "Back", 120, 25,function(){
         app.stage.removeChild(app.characterSelectScreen);
         app.stage.addChild(app.titleScreen);

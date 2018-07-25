@@ -12,6 +12,17 @@ var ui =
         return newText;
     },
 
+    makeTitleText: function(parent, text, x, y){
+        var newText = new createjs.Text(text, "32px Shrikhand", colors.dark);
+        newText.x = x;
+        newText.y = y;
+        newText.textAlign = "center";
+        newText.textBaseline = "middle";
+        parent.addChild(newText);
+
+        return newText;
+    },
+
     makeDefaultTextButton: function(parent, text, x, y, callbackFunc)
     {
         var BUTTON_WIDTH = 200;

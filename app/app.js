@@ -74,16 +74,15 @@ var app ={
         var stageBG = new createjs.Shape();
         stageBG.graphics.beginFill('#A6A').drawRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         this.stage.addChild(stageBG);
-        this.myGameObject = createSpriteActor(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "pig");
         this.stage.addChild(this.myGameObject);
-        this.myGameObject.scale = 0.5;
-        this.myGameObject.gotoAndPlay("walk");
 
-        this.titleScreen = new TitleScreen("Click Play to Start");
+        
+        this.titleScreen = new TitleScreen("Color Me Chammy!");
         this.instructionScreen = new InstructionScreen("Instructions");
         this.gameOverScreen = new GameOverScreen("GAME OVER");
         this.playScreen = new PlayScreen("Use Arrow Keys to Move");   
-        this.dataScreen = new DataScreen(this.mousePos.x, this.mousePos.y);
+        
+        //this.dataScreen = new DataScreen(this.mousePos.x, this.mousePos.y);
         this.characterSelectScreen = new CharacterSelect("Select Your Character");
 
         this.timerText = new createjs.Text("Timer: " + app.elapsedTime.toFixed(2), defaultFont, colors.dark);
@@ -103,15 +102,17 @@ var app ={
         this.stage.addChild(this.timerText);
         this.stage.addChild(this.scoreText);
         this.stage.addChild(this.titleScreen);
-        this.stage.addChild(this.dataScreen);
+        
+        //this.stage.addChild(this.dataScreen);
         this.stage.enableMouseOver();  
 
         this.stage.on("stagemousemove", function(event) {
             app.mousePos.x = Math.floor(event.stageX);
             app.mousePos.y = Math.floor(event.stageY);
-            app.stage.removeChild(app.dataScreen);
-            app.dataScreen = new DataScreen(app.mousePos.x, app.mousePos.y);
-            app.stage.addChild(app.dataScreen);
+            
+            //app.stage.removeChild(app.dataScreen);
+            //app.dataScreen = new DataScreen(app.mousePos.x, app.mousePos.y);
+            //app.stage.addChild(app.dataScreen);
         });
         
         this.stage.on("stagemousedown", function (event) {
