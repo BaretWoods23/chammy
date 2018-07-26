@@ -54,6 +54,31 @@ var ui =
         parent.addChild(shape);
 
         return shape;
+    },
+
+    createBox: function(x, y, playerNum){
+        var BOX_WIDTH = 100;
+        var BOX_HEIGHT = 100;
+        var shape = new createjs.Shape();
+        if(playerNum == 1){
+            shape.graphics.beginStroke("#FF0000");
+            shape.graphics.setStrokeStyle(5);
+            shape.snapToPixel = true;
+
+            shape.graphics.beginFill("#000").drawRect(x,y, BOX_WIDTH, BOX_HEIGHT);
+        }
+        else if(playerNum == 2){
+            shape.graphics.beginStroke("#0000FF");
+            shape.graphics.setStrokeStyle(5);
+            shape.snapToPixel = true;
+
+            shape.graphics.beginFill("#000").drawRect(x,y, BOX_WIDTH, BOX_HEIGHT);
+        }
+        else{
+            shape.graphics.beginFill("#000").drawRect(x,y, BOX_WIDTH, BOX_HEIGHT);
+        }
+
+        return shape;
     }
 }
 
