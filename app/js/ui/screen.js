@@ -17,7 +17,34 @@ function TitleScreen(screenTitleText){
 function InstructionScreen(screenTitleText){
     createjs.Container.call(this);
     ui.makeDefaultText(this, screenTitleText, SCREEN_WIDTH/2, 50);
-    ui.makeDefaultTextButton(this, "Back", SCREEN_WIDTH/2, 400, function(){
+
+    ui.makeDefaultText(this, "The goal is to have more colored tiles than the other player at the end of the game.", SCREEN_WIDTH/2, 100);
+    ui.makeDefaultText(this, "Jump onto a tile to paint it your color.", SCREEN_WIDTH/2, 120);
+
+    ui.makeDefaultText(this, "Player 1", SCREEN_WIDTH/3, 170);
+    ui.makeDefaultText(this, "Use WASD to move", SCREEN_WIDTH/3, 200);
+
+    ui.makeDefaultText(this, "Player 2", SCREEN_WIDTH/3*2, 170);
+    ui.makeDefaultText(this, "Use arrow keys to move", SCREEN_WIDTH/3*2, 200);
+
+    ui.addDefaultBox(this, SCREEN_WIDTH/4-50, 240);
+    ui.makeDefaultText(this, "Powerup 1", SCREEN_WIDTH/4, 255);
+    ui.makeDefaultText(this, "Lorem ipsum dolor sit", SCREEN_WIDTH/4, 370)
+    ui.makeDefaultText(this, "amet, consectetur", SCREEN_WIDTH/4, 390);
+    ui.makeDefaultText(this, "adipiscing elit.", SCREEN_WIDTH/4, 410);
+    
+    ui.addDefaultBox(this, SCREEN_WIDTH/2-50, 240);
+    ui.makeDefaultText(this, "Powerup 2", SCREEN_WIDTH/2, 255);
+    ui.makeDefaultText(this, "Lorem ipsum dolor sit", SCREEN_WIDTH/2, 370)
+    ui.makeDefaultText(this, "amet, consectetur", SCREEN_WIDTH/2, 390);
+    ui.makeDefaultText(this, "adipiscing elit.", SCREEN_WIDTH/2, 410);
+    
+    ui.addDefaultBox(this, SCREEN_WIDTH/4*3-50, 240);
+    ui.makeDefaultText(this, "Powerup 3", SCREEN_WIDTH/4*3, 255);
+    ui.makeDefaultText(this, "Lorem ipsum dolor sit", SCREEN_WIDTH/4*3, 370)
+    ui.makeDefaultText(this, "amet, consectetur", SCREEN_WIDTH/4*3, 390);
+    ui.makeDefaultText(this, "adipiscing elit.", SCREEN_WIDTH/4*3, 410);
+    ui.makeDefaultTextButton(this, "Back", SCREEN_WIDTH/2, 450, function(){
         app.stage.removeChild(app.instructionScreen);
         app.stage.addChild(app.titleScreen);
     });
