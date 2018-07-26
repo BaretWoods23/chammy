@@ -5,10 +5,14 @@ var app ={
     elapsedTime: 0, 
     mousePos: {x: 0, y: 0},
     keyboard: {
-        left : { keycode: 37, altcode: 65, isPressed: false},
-        up : { keycode: 38, altcode: 87, isPressed: false},
-        right : { keycode: 39, altcode: 68, isPressed: false},
-        down : { keycode: 40, altcode: 83, isPressed: false},
+        left : { keycode: 37, isPressed: false},
+        up : { keycode: 38, isPressed: false},
+        right : { keycode: 39, isPressed: false},
+        down : { keycode: 40, isPressed: false},
+        keyA: {keycode: 65, isPressed: false},
+        keyW: {keycode: 87, isPressed: false},
+        keyD: {keycode: 68, isPressed: false},
+        keyS: {keycode: 83, isPressed: false},
         spacebar : { keycode: 32, isPressed: false},
         assets : null,
         screen1: null,
@@ -180,13 +184,17 @@ var app ={
         console.log(evt.keyCode);
         switch(evt.keyCode) {
             case app.keyboard.left.keycode:     app.keyboard.left.isPressed = true; return false;
-            case app.keyboard.left.altcode:     app.keyboard.left.isPressed = true; return false;
+            case app.keyboard.keyA.keycode:     app.keyboard.keyA.isPressed = true; return false;
+            //case app.keyboard.left.altcode:     app.keyboard.left.isPressed = true; return false;
             case app.keyboard.up.keycode:       app.keyboard.up.isPressed = true; return false;
-            case app.keyboard.up.altcode:       app.keyboard.up.isPressed = true; return false;
+            case app.keyboard.keyW.keycode:     app.keyboard.keyW.isPressed = true; return false;
+            //case app.keyboard.up.altcode:       app.keyboard.up.isPressed = true; return false;
             case app.keyboard.right.keycode:    app.keyboard.right.isPressed = true; return false;
-            case app.keyboard.right.altcode:    app.keyboard.right.isPressed = true; return false;
+            case app.keyboard.keyD.keycode:     app.keyboard.keyD.isPressed = true; return false;
+            //case app.keyboard.right.altcode:    app.keyboard.right.isPressed = true; return false;
             case app.keyboard.down.keycode:     app.keyboard.down.isPressed = true; return false;
-            case app.keyboard.down.altcode:     app.keyboard.down.isPressed = true; return false;
+            case app.keyboard.keyS.keycode:     app.keyboard.keyS.isPressed = true; return false;
+            //case app.keyboard.down.altcode:     app.keyboard.down.isPressed = true; return false;
             case app.keyboard.spacebar.keycode: app.keyboard.spacebar.isPressed = true; return false;
         }
     },
@@ -197,13 +205,17 @@ var app ={
 
         switch(evt.keyCode) {
             case app.keyboard.left.keycode:     app.keyboard.left.isPressed = false; return false;
-            case app.keyboard.left.altcode:     app.keyboard.left.isPressed = false; return false;
+            case app.keyboard.keyA.keycode:     app.keyboard.keyA.isPressed = false; return false;
+            //case app.keyboard.left.altcode:     app.keyboard.left.isPressed = true; return false;
             case app.keyboard.up.keycode:       app.keyboard.up.isPressed = false; return false;
-            case app.keyboard.up.altcode:       app.keyboard.up.isPressed = false; return false;
+            case app.keyboard.keyW.keycode:     app.keyboard.keyW.isPressed = false; return false;
+            //case app.keyboard.up.altcode:       app.keyboard.up.isPressed = true; return false;
             case app.keyboard.right.keycode:    app.keyboard.right.isPressed = false; return false;
-            case app.keyboard.right.altcode:    app.keyboard.right.isPressed = false; return false;
+            case app.keyboard.keyD.keycode:     app.keyboard.keyD.isPressed = false; return false;
+            //case app.keyboard.right.altcode:    app.keyboard.right.isPressed = true; return false;
             case app.keyboard.down.keycode:     app.keyboard.down.isPressed = false; return false;
-            case app.keyboard.down.altcode:     app.keyboard.down.isPressed = false; return false;
+            case app.keyboard.keyS.keycode:     app.keyboard.keyS.isPressed = false; return false;
+            //case app.keyboard.down.altcode:     app.keyboard.down.isPressed = true; return false;
             case app.keyboard.spacebar.keycode: app.keyboard.spacebar.isPressed = false; return false;
         }
     },
