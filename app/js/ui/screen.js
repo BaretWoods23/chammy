@@ -47,10 +47,22 @@ function GameOverScreen(screenTitleText){
 function CharacterSelect(screenTitleText){
     createjs.Container.call(this);
     ui.makeDefaultText(this,screenTitleText, SCREEN_WIDTH/2, 50);
-    ui.addDefaultBox(this,275,100); //Character 1
-    ui.addDefaultBox(this,425,100); //Character 2
-    ui.addDefaultBox(this,275,250); //Character 3
-    ui.addDefaultBox(this,425,250); //Character 4
+    
+    //Character 1
+    var charOneBox = ui.createBox(275, 100, 1);
+    this.addChild(charOneBox);
+    
+    //Character 2
+    var charTwoBox = ui.createBox(425, 100, 2);
+    this.addChild(charTwoBox);
+    
+    //Character 3
+    var charThreeBox = ui.createBox(275, 250, 0);
+    this.addChild(charThreeBox);
+    
+    //Character 4
+    var charFourBox = ui.createBox(425, 250, 0);
+    this.addChild(charFourBox);
 
     ui.addDefaultBox(this,75, 370); //P1
     ui.makeDefaultText(this, "Player 1", 125,500);
