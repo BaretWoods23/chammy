@@ -12,6 +12,17 @@ var ui =
         return newText;
     },
 
+    makeTitleText: function(parent, text, x, y){
+        var newText = new createjs.Text(text, "32px Shrikhand", colors.dark);
+        newText.x = x;
+        newText.y = y;
+        newText.textAlign = "center";
+        newText.textBaseline = "middle";
+        parent.addChild(newText);
+
+        return newText;
+    },
+
     makeDefaultTextButton: function(parent, text, x, y, callbackFunc)
     {
         var BUTTON_WIDTH = 200;
@@ -31,6 +42,43 @@ var ui =
         newButton.on("mousedown", callbackFunc);
 
         return newButton;
+    },
+
+    addDefaultBox: function(parent,x,y)
+    {
+        var BOX_WIDTH = 100;
+        var BOX_HEIGHT = 100;
+
+        var shape = new createjs.Shape();
+        shape.graphics.beginFill("#000").drawRect(x,y, BOX_WIDTH, BOX_HEIGHT);
+        parent.addChild(shape);
+
+        return shape;
+    },
+
+    createBox: function(x, y, playerNum){
+        var BOX_WIDTH = 100;
+        var BOX_HEIGHT = 100;
+        var shape = new createjs.Shape();
+        if(playerNum == 1){
+            shape.graphics.beginStroke("#FF0000");
+            shape.graphics.setStrokeStyle(5);
+            shape.snapToPixel = true;
+
+            shape.graphics.beginFill("#000").drawRect(x,y, BOX_WIDTH, BOX_HEIGHT);
+        }
+        else if(playerNum == 2){
+            shape.graphics.beginStroke("#0000FF");
+            shape.graphics.setStrokeStyle(5);
+            shape.snapToPixel = true;
+
+            shape.graphics.beginFill("#000").drawRect(x,y, BOX_WIDTH, BOX_HEIGHT);
+        }
+        else{
+            shape.graphics.beginFill("#000").drawRect(x,y, BOX_WIDTH, BOX_HEIGHT);
+        }
+
+        return shape;
     }
 }
 

@@ -7,8 +7,9 @@ var SPEED = 200;
 var eStates = {
     TITLE: 0,
     PLAY: 1,
-    INSTRUCTIONS: 2,
-    GAMEOVER: 3,
+    CHARACTER_SELECT: 2,
+    INSTRUCTIONS: 3,
+    GAMEOVER: 4,
 };
 
 var colors = {
