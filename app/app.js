@@ -72,12 +72,12 @@ var app ={
     
         this.gameState = eStates.TITLE;
         var stageBG = new createjs.Shape();
-        stageBG.graphics.beginFill('#A6A').drawRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        stageBG.graphics.beginFill('#AAC').drawRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         this.stage.addChild(stageBG);
-        this.myGameObject = createSpriteActor(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "pig");
-        this.stage.addChild(this.myGameObject);
-        this.myGameObject.scale = 0.5;
-        this.myGameObject.gotoAndPlay("walk");
+        // this.myGameObject = createSpriteActor(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "pig");
+        // this.stage.addChild(this.myGameObject);
+       // this.myGameObject.scale = 0.5;
+       // this.myGameObject.gotoAndPlay("walk");
 
         this.titleScreen = new TitleScreen("Click Play to Start");
         this.instructionScreen = new InstructionScreen("Instructions");
@@ -130,39 +130,43 @@ var app ={
         app.elapsedTime += dt;
         if(app.gameState === eStates.PLAY)
         {
+            let grid = app.playScreen.children[0];
             app.timerText.visible = true;
             app.scoreText.visible = true;
             app.timerText.text = "Timer: " + app.elapsedTime.toFixed(2);
             if(app.keyboard.left.isPressed)
             {
-                app.myGameObject.x -= SPEED * dt;
+              //  app.myGameObject.x -= SPEED * dt;
+                console.log(grid.children);
+                grid.children[0].graphics.beginFill("#6AA");
                 console.log("Left was pressed");
             }
             if(app.keyboard.right.isPressed)
             {
-                app.myGameObject.x += SPEED * dt;
+               // app.myGameObject.x += SPEED * dt;
                 console.log("Right was pressed");
             }
             if(app.keyboard.up.isPressed)
             {
-                app.myGameObject.y -= SPEED * dt;
+                //app.myGameObject.y -= SPEED * dt;
                 console.log("Up was pressed");
             }
             if(app.keyboard.down.isPressed)
             {
-                app.myGameObject.y += SPEED * dt;
+               // app.myGameObject.y += SPEED * dt;
                 console.log("Down was pressed");
             }
             if(app.keyboard.spacebar.isPressed)
             {
                 console.log("Space was pressed");
             }
-            if(app.elapsedTime >= 5){
+            if(app.elapsedTime >= 200){
                 app.gameState = eStates.GAMEOVER;
                 app.timerText.visible = false;
                 app.stage.removeChild(app.playScreen);
                 app.stage.addChild(app.gameOverScreen);
             }
+            app.stage.update();
         }
     },
 
@@ -175,7 +179,6 @@ var app ={
     handleKeyDown: function(event)
     {
         if(!evt){ var evt = window.event; }
-        console.log(evt.keyCode);
         switch(evt.keyCode) {
             case app.keyboard.left.keycode:     app.keyboard.left.isPressed = true; return false;
             case app.keyboard.left.altcode:     app.keyboard.left.isPressed = true; return false;
