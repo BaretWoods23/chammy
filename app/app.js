@@ -4,6 +4,7 @@ var app ={
     myGameObject: null,
     elapsedTime: 0, 
     mousePos: {x: 0, y: 0},
+    tiles: [],
     keyboard: {
         left : { keycode: 37, isPressed: false},
         up : { keycode: 38, isPressed: false},
@@ -31,7 +32,10 @@ var app ={
     {
         manifest = [
             {
-                src: "js/actor.js",
+                src: "js/actors/actor.js",
+            },
+            {
+                src: "js/actors/bitmapactor.js",
             },
             {
                 src: "js/settings.js",
@@ -51,6 +55,10 @@ var app ={
             },
             {
                 src: "js/ui/screen.js",
+            },
+            {
+                src: "media/images/tile.png",
+                id: "tile"
             },
         ];
         this.assets = new createjs.LoadQueue(true);
@@ -139,15 +147,13 @@ var app ={
         app.elapsedTime += dt;
         if(app.gameState === eStates.PLAY)
         {
-            let grid = app.playScreen.children[0];
             app.timerText.visible = true;
             app.scoreText.visible = true;
             app.timerText.text = "Timer: " + app.elapsedTime.toFixed(2);
             if(app.keyboard.left.isPressed)
             {
               //  app.myGameObject.x -= SPEED * dt;
-                console.log(grid.children);
-                grid.children[0].graphics.beginFill("#6AA");
+                console.log(app.tiles);
                 console.log("Left was pressed");
             }
             if(app.keyboard.right.isPressed)
@@ -169,8 +175,8 @@ var app ={
             {
                 console.log("Space was pressed");
             }
-            if(app.elapsedTime >= 200){
-                app.gameState = eStates.GAMEOVER;
+            if(app.elapsedTime >= 3){
+                app.changeState(eStates.GAMEOVER);
                 app.timerText.visible = false;
                 app.stage.removeChild(app.playScreen);
                 app.stage.addChild(app.gameOverScreen);
@@ -236,10 +242,19 @@ var app ={
         }
         else if(this.gameState === eStates.PLAY)
         {
+            for(let i = 1; i < 7; i++){
+                for(let j = 1; j < 6; j++){
+                    this.tiles.push(new bitmapActor(this.stage, "tile" + i + j, 90*i+80, 80*j+80, 10, "tile"));
+                }
+            }
             console.log("Changing state to eStates.PLAY");
         }
         else if(this.gameState === eStates.GAMEOVER)
         {
+            this.tiles.forEach(function(tile){
+                tile.remove(app.stage);
+            });
+            this.tiles = [];
             console.log("Changing state to eStates.GAMEOVER");
         }
         else if(this.gameState === eStates.INSTRUCTIONS)
