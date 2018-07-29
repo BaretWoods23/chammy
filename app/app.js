@@ -5,6 +5,7 @@ var app ={
     elapsedTime: 0, 
     mousePos: {x: 0, y: 0},
     tiles: [],
+    scores: [0, 0],
     keyboard: {
         left : { keycode: 37, isPressed: false},
         up : { keycode: 38, isPressed: false},
@@ -107,15 +108,7 @@ var app ={
         this.timerText.textAlign = "center";
         this.timerText.textBaseline = "middle";
 
-        this.scoreText = new createjs.Text("Score: " + 0, defaultFont, colors.dark);
-        this.scoreText.visible = false;
-        this.scoreText.x = SCREEN_WIDTH/2;
-        this.scoreText.y = 80;
-        this.scoreText.textAlign = "center";
-        this.scoreText.textBaseline = "middle";
-
         this.stage.addChild(this.timerText);
-        this.stage.addChild(this.scoreText);
         this.stage.addChild(this.titleScreen);
         
         //this.stage.addChild(this.dataScreen);
@@ -148,7 +141,6 @@ var app ={
         if(app.gameState === eStates.PLAY)
         {
             app.timerText.visible = true;
-            app.scoreText.visible = true;
             app.timerText.text = "Timer: " + app.elapsedTime.toFixed(2);
             if(app.keyboard.left.isPressed)
             {
@@ -255,6 +247,20 @@ var app ={
                 tile.remove(app.stage);
             });
             this.tiles = [];
+
+            app.p1ScoreText.text = `Player 1:  ${this.scores[0]}`;
+            app.p2ScoreText.text = `Player 2:  ${this.scores[1]}`;
+
+            if(app.scores[0] > app.scores[1]) {
+                app.winnerText.text = "Player 1 wins!";
+            }
+            else if(app.scores[1] > app.scores[0]) {
+                app.winnerText.text = "Player 2 wins!";
+            }
+            else {
+                app.winnerText.text = "Tie!"
+            }
+
             console.log("Changing state to eStates.GAMEOVER");
         }
         else if(this.gameState === eStates.INSTRUCTIONS)

@@ -68,11 +68,20 @@ function PlayScreen(screenTitleText){
 function GameOverScreen(screenTitleText){
     createjs.Container.call(this);
     ui.makeDefaultText(this, screenTitleText, SCREEN_WIDTH/2, 50);
-    ui.makeDefaultTextButton(this, "Back", SCREEN_WIDTH/2, 400, function(){
+
+    ui.makeDefaultTextButton(this, "Rematch", SCREEN_WIDTH/3, 400, function(){
+        app.stage.removeChild(app.gameOverScreen);
+        app.stage.addChild(app.characterSelectScreen);
+    });
+
+    ui.makeDefaultTextButton(this, "Main Menu", SCREEN_WIDTH/3*2, 400, function(){
         app.stage.removeChild(app.gameOverScreen);
         app.stage.addChild(app.titleScreen);
-        app.scoreText.visible = false;
     });
+
+    app.p1ScoreText = ui.makeDefaultText(this, `Player 1:  ${app.scores[0]}`, SCREEN_WIDTH/3, 130);
+    app.p2ScoreText = ui.makeDefaultText(this, `Player 2:  ${app.scores[1]}`, SCREEN_WIDTH/3*2, 130);  
+    app.winnerText = ui.makeDefaultText(this, "Tie!", SCREEN_WIDTH/2, 100)  
 };
 
 function CharacterSelect(screenTitleText){
