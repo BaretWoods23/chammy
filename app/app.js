@@ -4,11 +4,16 @@ var app ={
     myGameObject: null,
     elapsedTime: 0, 
     mousePos: {x: 0, y: 0},
+    tiles: [],
     keyboard: {
-        left : { keycode: 37, altcode: 65, isPressed: false},
-        up : { keycode: 38, altcode: 87, isPressed: false},
-        right : { keycode: 39, altcode: 68, isPressed: false},
-        down : { keycode: 40, altcode: 83, isPressed: false},
+        left : { keycode: 37, isPressed: false},
+        up : { keycode: 38, isPressed: false},
+        right : { keycode: 39, isPressed: false},
+        down : { keycode: 40, isPressed: false},
+        keyA: {keycode: 65, isPressed: false},
+        keyW: {keycode: 87, isPressed: false},
+        keyD: {keycode: 68, isPressed: false},
+        keyS: {keycode: 83, isPressed: false},
         spacebar : { keycode: 32, isPressed: false},
         assets : null,
         screen1: null,
@@ -27,7 +32,10 @@ var app ={
     {
         manifest = [
             {
-                src: "js/actor.js",
+                src: "js/actors/actor.js",
+            },
+            {
+                src: "js/actors/bitmapactor.js",
             },
             {
                 src: "js/settings.js",
@@ -47,6 +55,10 @@ var app ={
             },
             {
                 src: "js/ui/screen.js",
+            },
+            {
+                src: "media/images/tile.png",
+                id: "tile"
             },
         ];
         this.assets = new createjs.LoadQueue(true);
@@ -72,9 +84,12 @@ var app ={
     
         this.gameState = eStates.TITLE;
         var stageBG = new createjs.Shape();
-        stageBG.graphics.beginFill('#A6A').drawRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        stageBG.graphics.beginFill('#AAC').drawRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         this.stage.addChild(stageBG);
-        this.stage.addChild(this.myGameObject);
+        // this.myGameObject = createSpriteActor(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "pig");
+        // this.stage.addChild(this.myGameObject);
+       // this.myGameObject.scale = 0.5;
+       // this.myGameObject.gotoAndPlay("walk");
 
         
         this.titleScreen = new TitleScreen("Color Me Chammy!");
@@ -137,34 +152,36 @@ var app ={
             app.timerText.text = "Timer: " + app.elapsedTime.toFixed(2);
             if(app.keyboard.left.isPressed)
             {
-                app.myGameObject.x -= SPEED * dt;
+              //  app.myGameObject.x -= SPEED * dt;
+                console.log(app.tiles);
                 console.log("Left was pressed");
             }
             if(app.keyboard.right.isPressed)
             {
-                app.myGameObject.x += SPEED * dt;
+               // app.myGameObject.x += SPEED * dt;
                 console.log("Right was pressed");
             }
             if(app.keyboard.up.isPressed)
             {
-                app.myGameObject.y -= SPEED * dt;
+                //app.myGameObject.y -= SPEED * dt;
                 console.log("Up was pressed");
             }
             if(app.keyboard.down.isPressed)
             {
-                app.myGameObject.y += SPEED * dt;
+               // app.myGameObject.y += SPEED * dt;
                 console.log("Down was pressed");
             }
             if(app.keyboard.spacebar.isPressed)
             {
                 console.log("Space was pressed");
             }
-            if(app.elapsedTime >= 5){
-                app.gameState = eStates.GAMEOVER;
+            if(app.elapsedTime >= 3){
+                app.changeState(eStates.GAMEOVER);
                 app.timerText.visible = false;
                 app.stage.removeChild(app.playScreen);
                 app.stage.addChild(app.gameOverScreen);
             }
+            app.stage.update();
         }
     },
 
@@ -177,16 +194,19 @@ var app ={
     handleKeyDown: function(event)
     {
         if(!evt){ var evt = window.event; }
-        console.log(evt.keyCode);
         switch(evt.keyCode) {
             case app.keyboard.left.keycode:     app.keyboard.left.isPressed = true; return false;
-            case app.keyboard.left.altcode:     app.keyboard.left.isPressed = true; return false;
+            case app.keyboard.keyA.keycode:     app.keyboard.keyA.isPressed = true; return false;
+            //case app.keyboard.left.altcode:     app.keyboard.left.isPressed = true; return false;
             case app.keyboard.up.keycode:       app.keyboard.up.isPressed = true; return false;
-            case app.keyboard.up.altcode:       app.keyboard.up.isPressed = true; return false;
+            case app.keyboard.keyW.keycode:     app.keyboard.keyW.isPressed = true; return false;
+            //case app.keyboard.up.altcode:       app.keyboard.up.isPressed = true; return false;
             case app.keyboard.right.keycode:    app.keyboard.right.isPressed = true; return false;
-            case app.keyboard.right.altcode:    app.keyboard.right.isPressed = true; return false;
+            case app.keyboard.keyD.keycode:     app.keyboard.keyD.isPressed = true; return false;
+            //case app.keyboard.right.altcode:    app.keyboard.right.isPressed = true; return false;
             case app.keyboard.down.keycode:     app.keyboard.down.isPressed = true; return false;
-            case app.keyboard.down.altcode:     app.keyboard.down.isPressed = true; return false;
+            case app.keyboard.keyS.keycode:     app.keyboard.keyS.isPressed = true; return false;
+            //case app.keyboard.down.altcode:     app.keyboard.down.isPressed = true; return false;
             case app.keyboard.spacebar.keycode: app.keyboard.spacebar.isPressed = true; return false;
         }
     },
@@ -197,13 +217,17 @@ var app ={
 
         switch(evt.keyCode) {
             case app.keyboard.left.keycode:     app.keyboard.left.isPressed = false; return false;
-            case app.keyboard.left.altcode:     app.keyboard.left.isPressed = false; return false;
+            case app.keyboard.keyA.keycode:     app.keyboard.keyA.isPressed = false; return false;
+            //case app.keyboard.left.altcode:     app.keyboard.left.isPressed = true; return false;
             case app.keyboard.up.keycode:       app.keyboard.up.isPressed = false; return false;
-            case app.keyboard.up.altcode:       app.keyboard.up.isPressed = false; return false;
+            case app.keyboard.keyW.keycode:     app.keyboard.keyW.isPressed = false; return false;
+            //case app.keyboard.up.altcode:       app.keyboard.up.isPressed = true; return false;
             case app.keyboard.right.keycode:    app.keyboard.right.isPressed = false; return false;
-            case app.keyboard.right.altcode:    app.keyboard.right.isPressed = false; return false;
+            case app.keyboard.keyD.keycode:     app.keyboard.keyD.isPressed = false; return false;
+            //case app.keyboard.right.altcode:    app.keyboard.right.isPressed = true; return false;
             case app.keyboard.down.keycode:     app.keyboard.down.isPressed = false; return false;
-            case app.keyboard.down.altcode:     app.keyboard.down.isPressed = false; return false;
+            case app.keyboard.keyS.keycode:     app.keyboard.keyS.isPressed = false; return false;
+            //case app.keyboard.down.altcode:     app.keyboard.down.isPressed = true; return false;
             case app.keyboard.spacebar.keycode: app.keyboard.spacebar.isPressed = false; return false;
         }
     },
@@ -218,10 +242,19 @@ var app ={
         }
         else if(this.gameState === eStates.PLAY)
         {
+            for(let i = 1; i < 7; i++){
+                for(let j = 1; j < 6; j++){
+                    this.tiles.push(new bitmapActor(this.stage, "tile" + i + j, 90*i+80, 80*j+80, 10, "tile"));
+                }
+            }
             console.log("Changing state to eStates.PLAY");
         }
         else if(this.gameState === eStates.GAMEOVER)
         {
+            this.tiles.forEach(function(tile){
+                tile.remove(app.stage);
+            });
+            this.tiles = [];
             console.log("Changing state to eStates.GAMEOVER");
         }
         else if(this.gameState === eStates.INSTRUCTIONS)
