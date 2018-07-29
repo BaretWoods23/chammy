@@ -251,6 +251,16 @@ var app ={
             app.p1ScoreText.text = `Player 1:  ${this.scores[0]}`;
             app.p2ScoreText.text = `Player 2:  ${this.scores[1]}`;
 
+            if(app.scores[0] > app.scores[1]) {
+                app.winnerText.text = "Player 1 wins!";
+            }
+            else if(app.scores[1] > app.scores[0]) {
+                app.winnerText.text = "Player 2 wins!";
+            }
+            else {
+                app.winnerText.text = "Tie!"
+            }
+
             console.log("Changing state to eStates.GAMEOVER");
         }
         else if(this.gameState === eStates.INSTRUCTIONS)
