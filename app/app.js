@@ -6,6 +6,7 @@ var app ={
     mousePos: {x: 0, y: 0},
     tiles: [],
     scores: [0, 0],
+    players: [],
     keyboard: {
         left : { keycode: 37, isPressed: false},
         up : { keycode: 38, isPressed: false},
@@ -42,6 +43,9 @@ var app ={
                 src: "js/settings.js",
             },
             {
+                src: "js/utils.js",
+            },
+            {
                 src: "media/audio/click.mp3",
                 id: "click"
             },
@@ -60,6 +64,26 @@ var app ={
             {
                 src: "media/images/tile.png",
                 id: "tile"
+            },
+            {
+                src: "media/images/redtile.png",
+                id: "redtile"
+            },
+            {
+                src: "media/images/bluetile.png",
+                id: "bluetile"
+            },
+            {
+                src: "media/images/p1sheet.json",
+                id: "p1",
+                type: "spritesheet",
+                crossOrigin: true
+            },
+            {
+                src: "media/images/p2sheet.json",
+                id: "p2",
+                type: "spritesheet",
+                crossOrigin: true
             },
         ];
         this.assets = new createjs.LoadQueue(true);
@@ -142,30 +166,49 @@ var app ={
         {
             app.timerText.visible = true;
             app.timerText.text = "Timer: " + app.elapsedTime.toFixed(2);
-            if(app.keyboard.left.isPressed)
+            app.players.forEach(function(player){
+                player.update(dt);
+            });
+            if(app.keyboard.left.isPressed && app.players[1].image.x != 90*1+80)
             {
-              //  app.myGameObject.x -= SPEED * dt;
-                console.log(app.tiles);
-                console.log("Left was pressed");
+                app.players[1].image.x -= 90;
+                app.keyboard.left.isPressed = false;
             }
-            if(app.keyboard.right.isPressed)
+            else if(app.keyboard.right.isPressed && app.players[1].image.x != 90*6+80)
             {
-               // app.myGameObject.x += SPEED * dt;
-                console.log("Right was pressed");
+               app.players[1].image.x += 90;
+               app.keyboard.right.isPressed = false;
             }
-            if(app.keyboard.up.isPressed)
+            else if(app.keyboard.up.isPressed && app.players[1].image.y != 80*1+80)
             {
-                //app.myGameObject.y -= SPEED * dt;
-                console.log("Up was pressed");
+                app.players[1].image.y -= 80;
+                app.keyboard.up.isPressed = false;
             }
-            if(app.keyboard.down.isPressed)
+            else if(app.keyboard.down.isPressed && app.players[1].image.y != 80*5+80)
             {
-               // app.myGameObject.y += SPEED * dt;
-                console.log("Down was pressed");
+                app.players[1].image.y += 80;
+                app.keyboard.down.isPressed = false;
             }
-            if(app.keyboard.spacebar.isPressed)
+
+            if(app.keyboard.keyA.isPressed && app.players[0].image.x != 90*1+80)
             {
-                console.log("Space was pressed");
+                app.players[0].image.x -= 90;
+                app.keyboard.keyA.isPressed = false;
+            }
+            else if(app.keyboard.keyD.isPressed && app.players[0].image.x != 90*6+80)
+            {
+               app.players[0].image.x += 90;
+               app.keyboard.keyD.isPressed = false;
+            }
+            else if(app.keyboard.keyW.isPressed && app.players[0].image.y != 80*1+80)
+            {
+                app.players[0].image.y -= 80;
+                app.keyboard.keyW.isPressed = false;
+            }
+            else if(app.keyboard.keyS.isPressed && app.players[0].image.y != 80*5+80)
+            {
+                app.players[0].image.y += 80;
+                app.keyboard.keyS.isPressed = false;
             }
             if(app.elapsedTime >= 3){
                 app.changeState(eStates.GAMEOVER);
@@ -236,25 +279,38 @@ var app ={
         {
             for(let i = 1; i < 7; i++){
                 for(let j = 1; j < 6; j++){
-                    this.tiles.push(new bitmapActor(this.stage, "tile" + i + j, 90*i+80, 80*j+80, 10, "tile"));
+                    this.tiles.push(new tileActor(this.stage, "tile" + i + j, 90*i+80, 80*j+80, 10, "tile"));
                 }
             }
+            this.players.push(new playerActor(this.stage, "p1", 90*1+80, 80*3+80, 10, "p1"));
+            this.players.push(new playerActor(this.stage, "p2", 90*6+80, 80*3+80, 10, "p2"));
             console.log("Changing state to eStates.PLAY");
         }
         else if(this.gameState === eStates.GAMEOVER)
         {
+            let p1Count = 0;
+            let p2Count = 0;
             this.tiles.forEach(function(tile){
+                if(tile.player == "p1"){
+                    p1Count++;
+                }else if(tile.player == "p2"){
+                    p2Count++;
+                }
                 tile.remove(app.stage);
             });
             this.tiles = [];
+            this.players.forEach(function(player){
+                player.remove(app.stage);
+            });
+            this.players = [];
 
-            app.p1ScoreText.text = `Player 1:  ${this.scores[0]}`;
-            app.p2ScoreText.text = `Player 2:  ${this.scores[1]}`;
+            app.p1ScoreText.text = `Player 1:  ${p1Count}`;
+            app.p2ScoreText.text = `Player 2:  ${p2Count}`;
 
-            if(app.scores[0] > app.scores[1]) {
+            if(p1Count > p2Count) {
                 app.winnerText.text = "Player 1 wins!";
             }
-            else if(app.scores[1] > app.scores[0]) {
+            else if(p2Count > p1Count) {
                 app.winnerText.text = "Player 2 wins!";
             }
             else {

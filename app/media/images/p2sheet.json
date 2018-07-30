@@ -1,0 +1,17 @@
+{
+
+	"images": [
+		"../media/images/p2.png"
+	],
+
+	"framerate": 4,
+
+	"frames": [
+		[0,0,90,80,0,45,40]
+	],
+
+	"animations": {
+		"idle": { "frames": [0] }
+	}
+
+}

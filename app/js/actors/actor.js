@@ -7,6 +7,8 @@ function Actor(nameString, x, y, r)
 }
 
 Actor.prototype.update = function(dt){
+    this.pos.x = this.image.x;
+    this.pos.y = this.image.y;
 }
 
 function spriteActor(parent, nameString, x, y, r, imageID)
@@ -16,7 +18,6 @@ function spriteActor(parent, nameString, x, y, r, imageID)
 
     this.image.x = this.pos.x;
     this.image.y = this.pos.y;
-    this.image.gotoAndPlay("idle");
     
     parent.addChild(this.image);
 }
@@ -24,20 +25,26 @@ spriteActor.prototype = Object.create(Actor.prototype);
 spriteActor.prototype.constructor = spriteActor;
 spriteActor.prototype.update = function(dt)
 {
-    this.image.x = this.pos.x;
-    this.image.y = this.pos.y;
     Actor.prototype.update.call(this, dt);
 }
 
-function playerActor(parent, x, y, r, imageID)
+function playerActor(parent, nameString, x, y, r, imageID)
 {
-    spriteActor.call(this, parent, "playerActor", x, y, r, imageID);
+    spriteActor.call(this, parent, nameString, x, y, r, imageID);
 
     this.update = function(dt){
-        console.log(dt);
         spriteActor.prototype.update.call(this, dt);
+        app.tiles.forEach(function(entry){
+            if(areActorsColliding(this, entry))
+            {
+                entry.onstep(nameString);
+            }
+        }, this);
     }
 }
 
 playerActor.prototype = Object.create(spriteActor.prototype);
 playerActor.prototype.constructor = playerActor;
+playerActor.prototype.remove = function(parent){
+    parent.removeChild(this.image);
+}
