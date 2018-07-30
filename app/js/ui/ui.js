@@ -89,6 +89,26 @@ var ui =
         }
 
         return shape;
-    }
+    },
+
+    // tile: function(parent, x, y){
+    //     var shape = new createjs.Shape();
+    //     shape.name = x+""+y;
+    //     shape.graphics.beginFill('#FFF').drawRect(0, 0, 98, 88);
+    //     shape.x = 100*x;
+    //     shape.y = 90*y;
+    //     parent.addChild(shape);
+    // },
+
+    // makeGrid: function(parent){
+    //     var grid = new createjs.Container();
+    //     parent.addChild(grid);
+    //     for(let i = 1; i < 7; i++){
+    //         for(let j = 1; j < 6; j++){
+    //             ui.tile(grid, i, j);
+    //         }
+    //     }
+    //     return grid;
+    // }
 }
 

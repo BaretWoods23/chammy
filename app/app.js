@@ -4,6 +4,9 @@ var app ={
     myGameObject: null,
     elapsedTime: 0, 
     mousePos: {x: 0, y: 0},
+    tiles: [],
+    scores: [0, 0],
+    players: [],
     keyboard: {
         left : { keycode: 37, isPressed: false},
         up : { keycode: 38, isPressed: false},
@@ -32,10 +35,16 @@ var app ={
     {
         manifest = [
             {
-                src: "js/actor.js",
+                src: "js/actors/actor.js",
+            },
+            {
+                src: "js/actors/bitmapactor.js",
             },
             {
                 src: "js/settings.js",
+            },
+            {
+                src: "js/utils.js",
             },
             {
                 src: "media/audio/click.mp3",
@@ -52,6 +61,30 @@ var app ={
             },
             {
                 src: "js/ui/screen.js",
+            },
+            {
+                src: "media/images/tile.png",
+                id: "tile"
+            },
+            {
+                src: "media/images/redtile.png",
+                id: "redtile"
+            },
+            {
+                src: "media/images/bluetile.png",
+                id: "bluetile"
+            },
+            {
+                src: "media/images/p1sheet.json",
+                id: "p1",
+                type: "spritesheet",
+                crossOrigin: true
+            },
+            {
+                src: "media/images/p2sheet.json",
+                id: "p2",
+                type: "spritesheet",
+                crossOrigin: true
             },
         ];
         this.assets = new createjs.LoadQueue(true);
@@ -77,9 +110,12 @@ var app ={
     
         this.gameState = eStates.TITLE;
         var stageBG = new createjs.Shape();
-        stageBG.graphics.beginFill('#A6A').drawRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        stageBG.graphics.beginFill('#AAC').drawRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         this.stage.addChild(stageBG);
-        this.stage.addChild(this.myGameObject);
+        // this.myGameObject = createSpriteActor(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "pig");
+        // this.stage.addChild(this.myGameObject);
+       // this.myGameObject.scale = 0.5;
+       // this.myGameObject.gotoAndPlay("walk");
 
         
         this.titleScreen = new TitleScreen("Color Me Chammy!");
@@ -98,15 +134,7 @@ var app ={
         this.timerText.textAlign = "center";
         this.timerText.textBaseline = "middle";
 
-        this.scoreText = new createjs.Text("Score: " + 0, defaultFont, colors.dark);
-        this.scoreText.visible = false;
-        this.scoreText.x = SCREEN_WIDTH/2;
-        this.scoreText.y = 80;
-        this.scoreText.textAlign = "center";
-        this.scoreText.textBaseline = "middle";
-
         this.stage.addChild(this.timerText);
-        this.stage.addChild(this.scoreText);
         this.stage.addChild(this.titleScreen);
         
         //this.stage.addChild(this.dataScreen);
@@ -139,38 +167,58 @@ var app ={
         if(app.gameState === eStates.PLAY)
         {
             app.timerText.visible = true;
-            app.scoreText.visible = true;
             app.timerText.text = "Timer: " + app.elapsedTime.toFixed(2);
-            if(app.keyboard.left.isPressed)
+            app.players.forEach(function(player){
+                player.update(dt);
+            });
+            if(app.keyboard.left.isPressed && app.players[1].image.x != 90*1+80)
             {
-                app.myGameObject.x -= SPEED * dt;
-                console.log("Left was pressed");
+                app.players[1].image.x -= 90;
+                app.keyboard.left.isPressed = false;
             }
-            if(app.keyboard.right.isPressed)
+            else if(app.keyboard.right.isPressed && app.players[1].image.x != 90*6+80)
             {
-                app.myGameObject.x += SPEED * dt;
-                console.log("Right was pressed");
+               app.players[1].image.x += 90;
+               app.keyboard.right.isPressed = false;
             }
-            if(app.keyboard.up.isPressed)
+            else if(app.keyboard.up.isPressed && app.players[1].image.y != 80*1+80)
             {
-                app.myGameObject.y -= SPEED * dt;
-                console.log("Up was pressed");
+                app.players[1].image.y -= 80;
+                app.keyboard.up.isPressed = false;
             }
-            if(app.keyboard.down.isPressed)
+            else if(app.keyboard.down.isPressed && app.players[1].image.y != 80*5+80)
             {
-                app.myGameObject.y += SPEED * dt;
-                console.log("Down was pressed");
+                app.players[1].image.y += 80;
+                app.keyboard.down.isPressed = false;
             }
-            if(app.keyboard.spacebar.isPressed)
+
+            if(app.keyboard.keyA.isPressed && app.players[0].image.x != 90*1+80)
             {
-                console.log("Space was pressed");
+                app.players[0].image.x -= 90;
+                app.keyboard.keyA.isPressed = false;
             }
-            if(app.elapsedTime >= 5){
-                app.gameState = eStates.GAMEOVER;
+            else if(app.keyboard.keyD.isPressed && app.players[0].image.x != 90*6+80)
+            {
+               app.players[0].image.x += 90;
+               app.keyboard.keyD.isPressed = false;
+            }
+            else if(app.keyboard.keyW.isPressed && app.players[0].image.y != 80*1+80)
+            {
+                app.players[0].image.y -= 80;
+                app.keyboard.keyW.isPressed = false;
+            }
+            else if(app.keyboard.keyS.isPressed && app.players[0].image.y != 80*5+80)
+            {
+                app.players[0].image.y += 80;
+                app.keyboard.keyS.isPressed = false;
+            }
+            if(app.elapsedTime >= 3){
+                app.changeState(eStates.GAMEOVER);
                 app.timerText.visible = false;
                 app.stage.removeChild(app.playScreen);
                 app.stage.addChild(app.gameOverScreen);
             }
+            app.stage.update();
         }
         else if(app.gameState === eStates.CHARACTER_SELECT){
             //Player One Inputs
@@ -364,7 +412,6 @@ var app ={
     handleKeyDown: function(event)
     {
         if(!evt){ var evt = window.event; }
-        console.log(evt.keyCode);
         switch(evt.keyCode) {
             case app.keyboard.left.keycode:     app.keyboard.left.isPressed = true; return false;
             case app.keyboard.keyA.keycode:     app.keyboard.keyA.isPressed = true; return false;
@@ -413,10 +460,46 @@ var app ={
         }
         else if(this.gameState === eStates.PLAY)
         {
+            for(let i = 1; i < 7; i++){
+                for(let j = 1; j < 6; j++){
+                    this.tiles.push(new tileActor(this.stage, "tile" + i + j, 90*i+80, 80*j+80, 10, "tile"));
+                }
+            }
+            this.players.push(new playerActor(this.stage, "p1", 90*1+80, 80*3+80, 10, "p1"));
+            this.players.push(new playerActor(this.stage, "p2", 90*6+80, 80*3+80, 10, "p2"));
             console.log("Changing state to eStates.PLAY");
         }
         else if(this.gameState === eStates.GAMEOVER)
         {
+            let p1Count = 0;
+            let p2Count = 0;
+            this.tiles.forEach(function(tile){
+                if(tile.player == "p1"){
+                    p1Count++;
+                }else if(tile.player == "p2"){
+                    p2Count++;
+                }
+                tile.remove(app.stage);
+            });
+            this.tiles = [];
+            this.players.forEach(function(player){
+                player.remove(app.stage);
+            });
+            this.players = [];
+
+            app.p1ScoreText.text = `Player 1:  ${p1Count}`;
+            app.p2ScoreText.text = `Player 2:  ${p2Count}`;
+
+            if(p1Count > p2Count) {
+                app.winnerText.text = "Player 1 wins!";
+            }
+            else if(p2Count > p1Count) {
+                app.winnerText.text = "Player 2 wins!";
+            }
+            else {
+                app.winnerText.text = "Tie!"
+            }
+
             console.log("Changing state to eStates.GAMEOVER");
         }
         else if(this.gameState === eStates.INSTRUCTIONS)

@@ -4,13 +4,12 @@ function TitleScreen(screenTitleText){
     ui.makeDefaultTextButton(this, "Instructions", SCREEN_WIDTH/4, 400, function(){
         app.stage.removeChild(app.titleScreen);
         app.stage.addChild(app.instructionScreen);
-        app.gameState = eStates.INSTRUCTIONS;
+        app.changeState(eStates.INSTRUCTIONS);
     });
     ui.makeDefaultTextButton(this, "Play", SCREEN_WIDTH/4+SCREEN_WIDTH/2, 400, function(){
         app.stage.removeChild(app.titleScreen);
         app.stage.addChild(app.characterSelectScreen);
-        app.gameState = eStates.CHARACTER_SELECT;
-        
+        app.changeState(eStates.CHARACTER_SELECT); 
     })
 };
 
@@ -58,17 +57,31 @@ function DataScreen(positionX, positionY){
 
 function PlayScreen(screenTitleText){
     createjs.Container.call(this);
+    // var shape = new createjs.Shape();
+    // shape.graphics.beginFill('#FFF').drawRect(0, 0, SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
+    // app.stage.addChild(shape);
+    
+  //s  ui.makeGrid(this);
     ui.makeDefaultText(this, screenTitleText, SCREEN_WIDTH/2, 50);
 };
 
 function GameOverScreen(screenTitleText){
     createjs.Container.call(this);
     ui.makeDefaultText(this, screenTitleText, SCREEN_WIDTH/2, 50);
-    ui.makeDefaultTextButton(this, "Back", SCREEN_WIDTH/2, 400, function(){
+
+    ui.makeDefaultTextButton(this, "Rematch", SCREEN_WIDTH/3, 400, function(){
+        app.stage.removeChild(app.gameOverScreen);
+        app.stage.addChild(app.characterSelectScreen);
+    });
+
+    ui.makeDefaultTextButton(this, "Main Menu", SCREEN_WIDTH/3*2, 400, function(){
         app.stage.removeChild(app.gameOverScreen);
         app.stage.addChild(app.titleScreen);
-        app.scoreText.visible = false;
     });
+
+    app.p1ScoreText = ui.makeDefaultText(this, `Player 1:  ${app.scores[0]}`, SCREEN_WIDTH/3, 130);
+    app.p2ScoreText = ui.makeDefaultText(this, `Player 2:  ${app.scores[1]}`, SCREEN_WIDTH/3*2, 130);  
+    app.winnerText = ui.makeDefaultText(this, "Tie!", SCREEN_WIDTH/2, 100)  
 };
 
 var charOneBox;
@@ -123,7 +136,7 @@ function CharacterSelect(screenTitleText){
     ui.makeDefaultTextButton(this,"FIGHT", SCREEN_WIDTH/2, 500,function(){
         app.stage.removeChild(app.characterSelectScreen);
         app.stage.addChild(app.playScreen);
-        app.gameState = eStates.PLAY;
+        app.changeState(eStates.PLAY);
         app.elapsedTime = 0;
     });
 
