@@ -71,29 +71,49 @@ function GameOverScreen(screenTitleText){
     });
 };
 
+var charOneBox;
+var charTwoBox;
+var charThreeBox;
+var charFourBox;
+
+var playerOneBox;
+var playerTwoBox;
+
 function CharacterSelect(screenTitleText){
+
+    charOneNum = 0;
+    charTwoNum = 0;
+    charThreeNum = 0;
+    charFourNum = 0;
     createjs.Container.call(this);
     ui.makeDefaultText(this,screenTitleText, SCREEN_WIDTH/2, 50);
     
     //Character 1
-    var charOneBox = ui.createBox(275, 100, 1);
+    charOneBox = ui.createBox(275, 100, 1);
+    charOneNum = ui.charOneNum;
     this.addChild(charOneBox);
+    console.log("Character One Player Num: " + ui.charOneNum);
+    console.log("Character Three Player Num: " + ui.charThreeNum);
     
     //Character 2
-    var charTwoBox = ui.createBox(425, 100, 2);
+    charTwoBox = ui.createBox(425, 100, 2);
+    charTwoNum = ui.charTwoNum;
     this.addChild(charTwoBox);
     
     //Character 3
-    var charThreeBox = ui.createBox(275, 250, 0);
+    charThreeBox = ui.createBox(275, 250, 0);
+    charThreeNum = ui.charThreeNum;
     this.addChild(charThreeBox);
     
     //Character 4
-    var charFourBox = ui.createBox(425, 250, 0);
+    charFourBox = ui.createBox(425, 250, 0);
+    charFourNum = ui.charFourNum;
     this.addChild(charFourBox);
 
-    ui.addDefaultBox(this,75, 370); //P1
+    playerOneBox = ui.addDefaultBox(this,75, 370); //P1
     ui.makeDefaultText(this, "Player 1", 125,500);
-    ui.addDefaultBox(this,625,370); //P2
+
+    playerTwoBox = ui.addDefaultBox(this,625,370); //P2
     ui.makeDefaultText(this, "Player 2", 675, 500);
 
     ui.makeDefaultTextButton(this, "Back", 120, 25,function(){
@@ -106,6 +126,18 @@ function CharacterSelect(screenTitleText){
         app.gameState = eStates.PLAY;
         app.elapsedTime = 0;
     });
+
+    var charOneNumText = new createjs.Text(charOneNum, defaultFont, colors.dark);
+    this.addChild(charOneNumText);
+
+    var charTwoNumText = new createjs.Text(charTwoNum, defaultFont, colors.dark);
+    this.addChild(charTwoNumText);
+
+    var charThreeNumText = new createjs.Text(charThreeNum, defaultFont, colors.dark);
+    this.addChild(charThreeNumText);
+
+    var charFourNumText = new createjs.Text(charFourNum, defaultFont, colors.dark);
+    this.addChild(charFourNumText);
 };
 
 TitleScreen.prototype = Object.create(createjs.Container.prototype);
