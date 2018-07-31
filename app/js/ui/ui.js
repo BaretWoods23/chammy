@@ -1,5 +1,10 @@
 var ui = 
 {
+    charOneNum: 0,
+    charTwoNum: 0,
+    charThreeNum: 0,
+    charFourNum: 0,
+
     makeDefaultText: function(parent, text, x, y)
     {
         var newText = new createjs.Text(text, defaultFont, colors.dark);
@@ -64,6 +69,7 @@ var ui =
             shape.graphics.beginStroke("#FF0000");
             shape.graphics.setStrokeStyle(5);
             shape.snapToPixel = true;
+            this.charOneNum = playerNum;
 
             shape.graphics.beginFill("#000").drawRect(x,y, BOX_WIDTH, BOX_HEIGHT);
         }
@@ -71,10 +77,14 @@ var ui =
             shape.graphics.beginStroke("#0000FF");
             shape.graphics.setStrokeStyle(5);
             shape.snapToPixel = true;
+            this.charTwoNum = playerNum;
 
             shape.graphics.beginFill("#000").drawRect(x,y, BOX_WIDTH, BOX_HEIGHT);
         }
         else{
+            shape.graphics.beginStroke("#000000");
+            shape.graphics.setStrokeStyle(5);
+            shape.snapToPixel = true;
             shape.graphics.beginFill("#000").drawRect(x,y, BOX_WIDTH, BOX_HEIGHT);
         }
 

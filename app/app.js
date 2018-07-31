@@ -21,6 +21,7 @@ var app ={
         screen1: null,
         screen2: null,
     },
+    finalCharacterSelectScreen: null,
 
     setupCanvas: function()
     {
@@ -124,6 +125,7 @@ var app ={
         
         //this.dataScreen = new DataScreen(this.mousePos.x, this.mousePos.y);
         this.characterSelectScreen = new CharacterSelect("Select Your Character");
+        app.finalCharacterSelectScreen = this.characterSelectScreen;
 
         this.timerText = new createjs.Text("Timer: " + app.elapsedTime.toFixed(2), defaultFont, colors.dark);
         this.timerText.visible = false;
@@ -217,6 +219,187 @@ var app ={
                 app.stage.addChild(app.gameOverScreen);
             }
             app.stage.update();
+        }
+        else if(app.gameState === eStates.CHARACTER_SELECT){
+            //Player One Inputs
+            if(app.keyboard.keyA.isPressed)
+            {
+                if(app.finalCharacterSelectScreen.children[12].text === 1 && app.finalCharacterSelectScreen.children[11].text === 0){
+                    app.finalCharacterSelectScreen.children[1].graphics._stroke.style = "#FF0000";
+                    app.finalCharacterSelectScreen.children[11].text = 1;
+
+                    app.finalCharacterSelectScreen.children[2].graphics._stroke.style = "#000000";
+                    app.finalCharacterSelectScreen.children[12].text = 0;
+                    console.log("P1 Left was pressed");
+                }
+                else if(app.finalCharacterSelectScreen.children[14].text === 1 && app.finalCharacterSelectScreen.children[13].text === 0){
+                    app.finalCharacterSelectScreen.children[3].graphics._stroke.style = "#FF0000";
+                    app.finalCharacterSelectScreen.children[13].text = 1;
+
+                    app.finalCharacterSelectScreen.children[4].graphics._stroke.style = "#000000";
+                    app.finalCharacterSelectScreen.children[14].text = 0;
+                    console.log("P1 Left was pressed");
+                }
+                else{
+                    console.log("P1 Left was pressed");
+                }
+            }
+            if(app.keyboard.keyD.isPressed)
+            {
+                if(app.finalCharacterSelectScreen.children[11].text === 1 && app.finalCharacterSelectScreen.children[12].text === 0){
+                    app.finalCharacterSelectScreen.children[2].graphics._stroke.style = "#FF0000";
+                    app.finalCharacterSelectScreen.children[12].text = 1;
+
+                    app.finalCharacterSelectScreen.children[1].graphics._stroke.style = "#000000";
+                    app.finalCharacterSelectScreen.children[11].text = 0;
+                    console.log("P1 Right was pressed");
+                }
+                else if(app.finalCharacterSelectScreen.children[13].text === 1 && app.finalCharacterSelectScreen.children[14].text === 0){
+                    app.finalCharacterSelectScreen.children[4].graphics._stroke.style = "#FF0000";
+                    app.finalCharacterSelectScreen.children[14].text = 1;
+
+                    app.finalCharacterSelectScreen.children[3].graphics._stroke.style = "#000000";
+                    app.finalCharacterSelectScreen.children[13].text = 0;
+                    console.log("P1 Right was pressed");
+                }
+                else{
+                    console.log("P1 Right was pressed");
+                }
+            }
+            if(app.keyboard.keyW.isPressed)
+            {
+                if(app.finalCharacterSelectScreen.children[13].text === 1 && app.finalCharacterSelectScreen.children[11].text === 0){
+                    app.finalCharacterSelectScreen.children[1].graphics._stroke.style = "#FF0000";
+                    app.finalCharacterSelectScreen.children[11].text = 1;
+
+                    app.finalCharacterSelectScreen.children[3].graphics._stroke.style = "#000000";
+                    app.finalCharacterSelectScreen.children[13].text = 0;
+                    console.log("P1 Up was pressed");
+                }
+                else if(app.finalCharacterSelectScreen.children[14].text === 1 && app.finalCharacterSelectScreen.children[12].text === 0){
+                    app.finalCharacterSelectScreen.children[2].graphics._stroke.style = "#FF0000";
+                    app.finalCharacterSelectScreen.children[12].text = 1;
+
+                    app.finalCharacterSelectScreen.children[4].graphics._stroke.style = "#000000";
+                    app.finalCharacterSelectScreen.children[14].text = 0;
+                    console.log("P1 Up was pressed");
+                }
+                else{
+                    console.log("P1 Up was pressed");
+                }
+            }
+            if(app.keyboard.keyS.isPressed)
+            {
+                if(app.finalCharacterSelectScreen.children[11].text === 1 && app.finalCharacterSelectScreen.children[13].text === 0){
+                    app.finalCharacterSelectScreen.children[1].graphics._stroke.style = "#000000";
+                    app.finalCharacterSelectScreen.children[11].text = 0;
+
+                    app.finalCharacterSelectScreen.children[3].graphics._stroke.style = "#FF0000";
+                    app.finalCharacterSelectScreen.children[13].text = 1;
+                    console.log("P1 Down was pressed");
+                }
+                else if(app.finalCharacterSelectScreen.children[12].text === 1 && app.finalCharacterSelectScreen.children[14].text === 0){
+                    app.finalCharacterSelectScreen.children[2].graphics._stroke.style = "#000000";
+                    app.finalCharacterSelectScreen.children[12].text = 0;
+
+                    app.finalCharacterSelectScreen.children[4].graphics._stroke.style = "#FF0000";
+                    app.finalCharacterSelectScreen.children[14].text = 1;
+                    console.log("P1 Down was pressed");
+                }
+                else{
+                    console.log("P1 Down was pressed");
+                }
+            }
+
+            //Player Two Inputs
+            if(app.keyboard.left.isPressed)
+            {
+                if(app.finalCharacterSelectScreen.children[12].text === 2 && app.finalCharacterSelectScreen.children[11].text === 0){
+                    app.finalCharacterSelectScreen.children[1].graphics._stroke.style = "#0000FF";
+                    app.finalCharacterSelectScreen.children[11].text = 2;
+
+                    app.finalCharacterSelectScreen.children[2].graphics._stroke.style = "#000000";
+                    app.finalCharacterSelectScreen.children[12].text = 0;
+                    console.log("P2 Left was pressed");
+                }
+                else if(app.finalCharacterSelectScreen.children[14].text === 2 && app.finalCharacterSelectScreen.children[13].text === 0){
+                    app.finalCharacterSelectScreen.children[3].graphics._stroke.style = "#0000FF";
+                    app.finalCharacterSelectScreen.children[13].text = 2;
+
+                    app.finalCharacterSelectScreen.children[4].graphics._stroke.style = "#000000";
+                    app.finalCharacterSelectScreen.children[14].text = 0;
+                    console.log("P2 Left was pressed");
+                }
+                else{
+                    console.log("P2 Left was pressed");
+                }
+            }
+            if(app.keyboard.right.isPressed)
+            {
+                if(app.finalCharacterSelectScreen.children[11].text === 2 && app.finalCharacterSelectScreen.children[12].text === 0){
+                    app.finalCharacterSelectScreen.children[2].graphics._stroke.style = "#0000FF";
+                    app.finalCharacterSelectScreen.children[12].text = 2;
+
+                    app.finalCharacterSelectScreen.children[1].graphics._stroke.style = "#000000";
+                    app.finalCharacterSelectScreen.children[11].text = 0;
+                    console.log("P2 Right was pressed");
+                }
+                else if(app.finalCharacterSelectScreen.children[13].text === 2 && app.finalCharacterSelectScreen.children[14].text === 0){
+                    app.finalCharacterSelectScreen.children[4].graphics._stroke.style = "#0000FF";
+                    app.finalCharacterSelectScreen.children[14].text = 2;
+
+                    app.finalCharacterSelectScreen.children[3].graphics._stroke.style = "#000000";
+                    app.finalCharacterSelectScreen.children[13].text = 0;
+                    console.log("P2 Right was pressed");
+                }
+                else{
+                    console.log("P2 Right was pressed");
+                }
+            }
+            if(app.keyboard.up.isPressed)
+            {
+                if(app.finalCharacterSelectScreen.children[13].text === 2 && app.finalCharacterSelectScreen.children[11].text === 0){
+                    app.finalCharacterSelectScreen.children[1].graphics._stroke.style = "#0000FF";
+                    app.finalCharacterSelectScreen.children[11].text = 2;
+
+                    app.finalCharacterSelectScreen.children[3].graphics._stroke.style = "#000000";
+                    app.finalCharacterSelectScreen.children[13].text = 0;
+                    console.log("P2 Up was pressed");
+                }
+                else if(app.finalCharacterSelectScreen.children[14].text === 2 && app.finalCharacterSelectScreen.children[12].text === 0){
+                    app.finalCharacterSelectScreen.children[2].graphics._stroke.style = "#0000FF";
+                    app.finalCharacterSelectScreen.children[12].text = 2;
+
+                    app.finalCharacterSelectScreen.children[4].graphics._stroke.style = "#000000";
+                    app.finalCharacterSelectScreen.children[14].text = 0;
+                    console.log("P2 Up was pressed");
+                }
+                else{
+                    console.log("P2 Up was pressed");
+                }
+            }
+            if(app.keyboard.down.isPressed)
+            {
+                if(app.finalCharacterSelectScreen.children[11].text === 2 && app.finalCharacterSelectScreen.children[13].text === 0){
+                    app.finalCharacterSelectScreen.children[1].graphics._stroke.style = "#000000";
+                    app.finalCharacterSelectScreen.children[11].text = 0;
+
+                    app.finalCharacterSelectScreen.children[3].graphics._stroke.style = "#0000FF";
+                    app.finalCharacterSelectScreen.children[13].text = 2;
+                    console.log("P2 Down was pressed");
+                }
+                else if(app.finalCharacterSelectScreen.children[12].text === 2 && app.finalCharacterSelectScreen.children[14].text === 0){
+                    app.finalCharacterSelectScreen.children[2].graphics._stroke.style = "#000000";
+                    app.finalCharacterSelectScreen.children[12].text = 0;
+
+                    app.finalCharacterSelectScreen.children[4].graphics._stroke.style = "#0000FF";
+                    app.finalCharacterSelectScreen.children[14].text = 2;
+                    console.log("P2 Down was pressed");
+                }
+                else{
+                    console.log("P2 Down was pressed");
+                }
+            }
         }
     },
 
