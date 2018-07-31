@@ -143,15 +143,19 @@ function CharacterSelect(screenTitleText){
     });
 
     var charOneNumText = new createjs.Text(charOneNum, defaultFont, colors.dark);
+    charOneNumText.visible = false;
     this.addChild(charOneNumText);
 
     var charTwoNumText = new createjs.Text(charTwoNum, defaultFont, colors.dark);
+    charTwoNumText.visible = false;
     this.addChild(charTwoNumText);
 
     var charThreeNumText = new createjs.Text(charThreeNum, defaultFont, colors.dark);
+    charThreeNumText.visible = false;
     this.addChild(charThreeNumText);
 
     var charFourNumText = new createjs.Text(charFourNum, defaultFont, colors.dark);
+    charFourNumText.visible = false;
     this.addChild(charFourNumText);
 };
 
