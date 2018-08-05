@@ -72,11 +72,13 @@ function GameOverScreen(screenTitleText){
     ui.makeDefaultTextButton(this, "Rematch", SCREEN_WIDTH/3, 400, function(){
         app.stage.removeChild(app.gameOverScreen);
         app.stage.addChild(app.characterSelectScreen);
+        app.changeState(eStates.CHARACTER_SELECT);
     });
 
     ui.makeDefaultTextButton(this, "Main Menu", SCREEN_WIDTH/3*2, 400, function(){
         app.stage.removeChild(app.gameOverScreen);
         app.stage.addChild(app.titleScreen);
+        app.changeState(eStates.TITLE);
     });
 
     app.p1ScoreText = ui.makeDefaultText(this, `Player 1:  ${app.scores[0]}`, SCREEN_WIDTH/3, 130);
@@ -141,15 +143,19 @@ function CharacterSelect(screenTitleText){
     });
 
     var charOneNumText = new createjs.Text(charOneNum, defaultFont, colors.dark);
+    charOneNumText.visible = false;
     this.addChild(charOneNumText);
 
     var charTwoNumText = new createjs.Text(charTwoNum, defaultFont, colors.dark);
+    charTwoNumText.visible = false;
     this.addChild(charTwoNumText);
 
     var charThreeNumText = new createjs.Text(charThreeNum, defaultFont, colors.dark);
+    charThreeNumText.visible = false;
     this.addChild(charThreeNumText);
 
     var charFourNumText = new createjs.Text(charFourNum, defaultFont, colors.dark);
+    charFourNumText.visible = false;
     this.addChild(charFourNumText);
 };
 
