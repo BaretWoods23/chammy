@@ -31,6 +31,11 @@ spriteActor.prototype.update = function(dt)
 function playerActor(parent, nameString, x, y, r, imageID)
 {
     spriteActor.call(this, parent, nameString, x, y, r, imageID);
+    this.image.scaleX = 0.5;
+    this.image.scaleY = 0.5;
+    this.image.gotoAndPlay("down");
+    this.nameString = nameString;
+    
 
     this.update = function(dt){
         spriteActor.prototype.update.call(this, dt);
