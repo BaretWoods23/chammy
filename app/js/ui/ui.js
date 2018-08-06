@@ -91,7 +91,6 @@ var ui =
             shape.graphics.setStrokeStyle(5);
             shape.snapToPixel = true;
             this.charOneNum = playerNum;
-
             shape.graphics.beginFill("#000").drawRect(x,y, BOX_WIDTH, BOX_HEIGHT);
         }
         else if(playerNum == 2){

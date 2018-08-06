@@ -22,6 +22,8 @@ var app ={
         screen2: null,
     },
     finalCharacterSelectScreen: null,
+    playerColors: ["chammygreen", "chammyred"],
+    characterIcons: [],
 
     setupCanvas: function()
     {
@@ -117,6 +119,22 @@ var app ={
             {
                 src: "media/images/forest.jpg",
                 id: "background"
+            },
+            {
+                src: "media/images/greenicon.png",
+                id: "greenicon"
+            },
+            {
+                src: "media/images/redicon.png",
+                id: "redicon"
+            },
+            {
+                src: "media/images/blueicon.png",
+                id: "blueicon"
+            },
+            {
+                src: "media/images/yellowicon.png",
+                id: "yellowicon"
             },
         ];
         this.assets = new createjs.LoadQueue(true);
@@ -282,6 +300,10 @@ var app ={
         }
         else if(app.gameState === eStates.CHARACTER_SELECT){
             //Player One Inputs
+            app.characterIcons.push(new bitmapActor(app.stage, "greenicon", 325, 150, 10, "greenicon"));
+            app.characterIcons.push(new bitmapActor(app.stage, "redicon", 475, 150, 10, "redicon"));
+            app.characterIcons.push(new bitmapActor(app.stage, "blueicon", 325, 300, 10, "blueicon"));
+            app.characterIcons.push(new bitmapActor(app.stage, "yellowicon", 475, 300, 10, "yellowicon"));
             if(app.keyboard.keyA.isPressed)
             {
                 if(app.finalCharacterSelectScreen.children[12].text === 1 && app.finalCharacterSelectScreen.children[11].text === 0){
@@ -290,7 +312,7 @@ var app ={
 
                     app.finalCharacterSelectScreen.children[2].graphics._stroke.style = "#000000";
                     app.finalCharacterSelectScreen.children[12].text = 0;
-                    console.log("P1 Left was pressed");
+                    app.playerColors[0] = "chammygreen";
                 }
                 else if(app.finalCharacterSelectScreen.children[14].text === 1 && app.finalCharacterSelectScreen.children[13].text === 0){
                     app.finalCharacterSelectScreen.children[3].graphics._stroke.style = "#FF0000";
@@ -298,10 +320,7 @@ var app ={
 
                     app.finalCharacterSelectScreen.children[4].graphics._stroke.style = "#000000";
                     app.finalCharacterSelectScreen.children[14].text = 0;
-                    console.log("P1 Left was pressed");
-                }
-                else{
-                    console.log("P1 Left was pressed");
+                    app.playerColors[0] = "chammyblue";
                 }
             }
             if(app.keyboard.keyD.isPressed)
@@ -312,7 +331,7 @@ var app ={
 
                     app.finalCharacterSelectScreen.children[1].graphics._stroke.style = "#000000";
                     app.finalCharacterSelectScreen.children[11].text = 0;
-                    console.log("P1 Right was pressed");
+                    app.playerColors[0] = "chammyred";
                 }
                 else if(app.finalCharacterSelectScreen.children[13].text === 1 && app.finalCharacterSelectScreen.children[14].text === 0){
                     app.finalCharacterSelectScreen.children[4].graphics._stroke.style = "#FF0000";
@@ -320,10 +339,7 @@ var app ={
 
                     app.finalCharacterSelectScreen.children[3].graphics._stroke.style = "#000000";
                     app.finalCharacterSelectScreen.children[13].text = 0;
-                    console.log("P1 Right was pressed");
-                }
-                else{
-                    console.log("P1 Right was pressed");
+                    app.playerColors[0] = "chammyyellow";
                 }
             }
             if(app.keyboard.keyW.isPressed)
@@ -334,7 +350,7 @@ var app ={
 
                     app.finalCharacterSelectScreen.children[3].graphics._stroke.style = "#000000";
                     app.finalCharacterSelectScreen.children[13].text = 0;
-                    console.log("P1 Up was pressed");
+                    app.playerColors[0] = "chammygreen";
                 }
                 else if(app.finalCharacterSelectScreen.children[14].text === 1 && app.finalCharacterSelectScreen.children[12].text === 0){
                     app.finalCharacterSelectScreen.children[2].graphics._stroke.style = "#FF0000";
@@ -342,10 +358,7 @@ var app ={
 
                     app.finalCharacterSelectScreen.children[4].graphics._stroke.style = "#000000";
                     app.finalCharacterSelectScreen.children[14].text = 0;
-                    console.log("P1 Up was pressed");
-                }
-                else{
-                    console.log("P1 Up was pressed");
+                    app.playerColors[0] = "chammyred";
                 }
             }
             if(app.keyboard.keyS.isPressed)
@@ -356,7 +369,7 @@ var app ={
 
                     app.finalCharacterSelectScreen.children[3].graphics._stroke.style = "#FF0000";
                     app.finalCharacterSelectScreen.children[13].text = 1;
-                    console.log("P1 Down was pressed");
+                    app.playerColors[0] = "chammyblue";
                 }
                 else if(app.finalCharacterSelectScreen.children[12].text === 1 && app.finalCharacterSelectScreen.children[14].text === 0){
                     app.finalCharacterSelectScreen.children[2].graphics._stroke.style = "#000000";
@@ -364,10 +377,7 @@ var app ={
 
                     app.finalCharacterSelectScreen.children[4].graphics._stroke.style = "#FF0000";
                     app.finalCharacterSelectScreen.children[14].text = 1;
-                    console.log("P1 Down was pressed");
-                }
-                else{
-                    console.log("P1 Down was pressed");
+                    app.playerColors[0] = "chammyyellow";
                 }
             }
 
@@ -380,7 +390,7 @@ var app ={
 
                     app.finalCharacterSelectScreen.children[2].graphics._stroke.style = "#000000";
                     app.finalCharacterSelectScreen.children[12].text = 0;
-                    console.log("P2 Left was pressed");
+                    app.playerColors[1] = "chammygreen";
                 }
                 else if(app.finalCharacterSelectScreen.children[14].text === 2 && app.finalCharacterSelectScreen.children[13].text === 0){
                     app.finalCharacterSelectScreen.children[3].graphics._stroke.style = "#0000FF";
@@ -388,10 +398,7 @@ var app ={
 
                     app.finalCharacterSelectScreen.children[4].graphics._stroke.style = "#000000";
                     app.finalCharacterSelectScreen.children[14].text = 0;
-                    console.log("P2 Left was pressed");
-                }
-                else{
-                    console.log("P2 Left was pressed");
+                    app.playerColors[1] = "chammyblue";
                 }
             }
             if(app.keyboard.right.isPressed)
@@ -402,7 +409,7 @@ var app ={
 
                     app.finalCharacterSelectScreen.children[1].graphics._stroke.style = "#000000";
                     app.finalCharacterSelectScreen.children[11].text = 0;
-                    console.log("P2 Right was pressed");
+                    app.playerColors[1] = "chammyred";
                 }
                 else if(app.finalCharacterSelectScreen.children[13].text === 2 && app.finalCharacterSelectScreen.children[14].text === 0){
                     app.finalCharacterSelectScreen.children[4].graphics._stroke.style = "#0000FF";
@@ -410,10 +417,7 @@ var app ={
 
                     app.finalCharacterSelectScreen.children[3].graphics._stroke.style = "#000000";
                     app.finalCharacterSelectScreen.children[13].text = 0;
-                    console.log("P2 Right was pressed");
-                }
-                else{
-                    console.log("P2 Right was pressed");
+                    app.playerColors[1] = "chammyyellow";
                 }
             }
             if(app.keyboard.up.isPressed)
@@ -424,7 +428,7 @@ var app ={
 
                     app.finalCharacterSelectScreen.children[3].graphics._stroke.style = "#000000";
                     app.finalCharacterSelectScreen.children[13].text = 0;
-                    console.log("P2 Up was pressed");
+                    app.playerColors[1] = "chammygreen";
                 }
                 else if(app.finalCharacterSelectScreen.children[14].text === 2 && app.finalCharacterSelectScreen.children[12].text === 0){
                     app.finalCharacterSelectScreen.children[2].graphics._stroke.style = "#0000FF";
@@ -432,10 +436,7 @@ var app ={
 
                     app.finalCharacterSelectScreen.children[4].graphics._stroke.style = "#000000";
                     app.finalCharacterSelectScreen.children[14].text = 0;
-                    console.log("P2 Up was pressed");
-                }
-                else{
-                    console.log("P2 Up was pressed");
+                    app.playerColors[1] = "chammyred";
                 }
             }
             if(app.keyboard.down.isPressed)
@@ -446,7 +447,7 @@ var app ={
 
                     app.finalCharacterSelectScreen.children[3].graphics._stroke.style = "#0000FF";
                     app.finalCharacterSelectScreen.children[13].text = 2;
-                    console.log("P2 Down was pressed");
+                    app.playerColors[1] = "chammyblue";
                 }
                 else if(app.finalCharacterSelectScreen.children[12].text === 2 && app.finalCharacterSelectScreen.children[14].text === 0){
                     app.finalCharacterSelectScreen.children[2].graphics._stroke.style = "#000000";
@@ -454,10 +455,7 @@ var app ={
 
                     app.finalCharacterSelectScreen.children[4].graphics._stroke.style = "#0000FF";
                     app.finalCharacterSelectScreen.children[14].text = 2;
-                    console.log("P2 Down was pressed");
-                }
-                else{
-                    console.log("P2 Down was pressed");
+                    app.playerColors[1] = "chammyyellow";
                 }
             }
         }
@@ -516,18 +514,19 @@ var app ={
 
         if(this.gameState === eStates.TITLE)
         {
-            console.log("Changing state to eStates.TITLE");
         }
         else if(this.gameState === eStates.PLAY)
         {
+            this.characterIcons.forEach(function(icon){
+                icon.remove(app.stage);
+            });
             for(let i = 1; i < 7; i++){
                 for(let j = 1; j < 6; j++){
                     this.tiles.push(new tileActor(this.stage, "tile" + i + j, 90*i+80, 80*j+80, 10, "tile"));
                 }
             }
-            this.players.push(new playerActor(this.stage, "chammygreen", 90*1+80, 80*3+80, 10, "chammygreen"));
-            this.players.push(new playerActor(this.stage, "chammyblue", 90*6+80, 80*3+80, 10, "chammyblue"));
-            console.log("Changing state to eStates.PLAY");
+            this.players.push(new playerActor(this.stage, this.playerColors[0], 90*1+80, 80*3+80, 10, this.playerColors[0]));
+            this.players.push(new playerActor(this.stage, this.playerColors[1], 90*6+80, 80*3+80, 10, this.playerColors[1]));
         }
         else if(this.gameState === eStates.GAMEOVER)
         {
