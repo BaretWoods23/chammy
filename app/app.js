@@ -199,33 +199,25 @@ var app ={
             if(app.keyboard.left.isPressed && app.players[1].image.x != 90*1+80)
             {
                 app.players[1].image.x -= 90;
-                app.keyboard.right.isPressed = false;
-                app.keyboard.up.isPressed = false;
-                app.keyboard.down.isPressed = false;
+                app.keyboard.left.isPressed = false;
                 app.players[1].image.gotoAndPlay("left");
             }
             else if(app.keyboard.right.isPressed && app.players[1].image.x != 90*6+80)
             {
                app.players[1].image.x += 90;
-               app.keyboard.left.isPressed = false;
-               app.keyboard.up.isPressed = false;
-               app.keyboard.down.isPressed = false;
+               app.keyboard.right.isPressed = false;
                app.players[1].image.gotoAndPlay("right");
             }
             else if(app.keyboard.up.isPressed && app.players[1].image.y != 80*1+80)
             {
                 app.players[1].image.y -= 80;
-                app.keyboard.right.isPressed = false;
-                app.keyboard.left.isPressed = false;
-                app.keyboard.down.isPressed = false;
+                app.keyboard.up.isPressed = false;
                 app.players[1].image.gotoAndPlay("up");
             }
             else if(app.keyboard.down.isPressed && app.players[1].image.y != 80*5+80)
             {
                 app.players[1].image.y += 80;
-                app.keyboard.right.isPressed = false;
-                app.keyboard.up.isPressed = false;
-                app.keyboard.left.isPressed = false;
+                app.keyboard.down.isPressed = false;
                 app.players[1].image.gotoAndPlay("down");
             }
 
@@ -234,33 +226,25 @@ var app ={
             if(app.keyboard.keyA.isPressed && app.players[0].image.x != 90*1+80)
             {
                 app.players[0].image.x -= 90;
-                app.keyboard.keyD.isPressed = false;
-                app.keyboard.keyS.isPressed = false;
-                app.keyboard.keyW.isPressed = false;
+                app.keyboard.keyA.isPressed = false;
                 app.players[0].image.gotoAndPlay("left");
             }
             else if(app.keyboard.keyD.isPressed && app.players[0].image.x != 90*6+80)
             {
                app.players[0].image.x += 90;
-               app.keyboard.keyA.isPressed = false;
-               app.keyboard.keyS.isPressed = false;
-               app.keyboard.keyW.isPressed = false;
+               app.keyboard.keyD.isPressed = false;
                app.players[0].image.gotoAndPlay("right");
             }
             else if(app.keyboard.keyW.isPressed && app.players[0].image.y != 80*1+80)
             {
                 app.players[0].image.y -= 80;
-                app.keyboard.keyD.isPressed = false;
-                app.keyboard.keyS.isPressed = false;
-                app.keyboard.keyA.isPressed = false;
+                app.keyboard.keyW.isPressed = false;
                 app.players[0].image.gotoAndPlay("up");
             }
             else if(app.keyboard.keyS.isPressed && app.players[0].image.y != 80*5+80)
             {
                 app.players[0].image.y += 80;
-                app.keyboard.keyD.isPressed = false;
-                app.keyboard.keyA.isPressed = false;
-                app.keyboard.keyW.isPressed = false;
+                app.keyboard.keyS.isPressed = false;
                 app.players[0].image.gotoAndPlay("down");
             }
             if(app.elapsedTime >= 10){
