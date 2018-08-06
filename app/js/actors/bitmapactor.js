@@ -28,15 +28,19 @@ bitmapActor.prototype.remove = function(parent){
 function tileActor(parent, nameString, x, y, r, imageID){
     bitmapActor.call(this, parent, nameString, x, y, r, imageID);
     this.onstep = function(player){
-        app.stage.removeChild(this.image);
-        this.image = null;
-        this.player = null;
-        if(player == "p1"){
-            this.image = new createjs.Bitmap(app.assets.getResult("redtile"));
-            this.player = "p1";
-        }else{
-            this.image = new createjs.Bitmap(app.assets.getResult("bluetile"));
-            this.player = "p2";
+        if(player == "chammygreen"){
+            this.image.image = app.assets.getResult("greentile");
+            this.player = "chammygreen";
+        }else if(player == "chammyblue"){
+            this.image.image = app.assets.getResult("bluetile");
+            this.player = "chammyblue";
+        }
+        else if(player == "chammyred"){
+            this.image.image = app.assets.getResult("redtile");
+            this.player = "chammyred";
+        }else if(player == "chammyyellow"){
+            this.image.image = app.assets.getResult("yellowtile");
+            this.player = "chammyyellow";
         }
 
         this.image.regX = this.image.getBounds().width / 2;
@@ -44,8 +48,6 @@ function tileActor(parent, nameString, x, y, r, imageID){
 
         this.image.x = this.pos.x;
         this.image.y = this.pos.y;
-
-        app.stage.addChild(this.image);
     }
 }
 tileActor.prototype = Object.create(bitmapActor.prototype);

@@ -75,16 +75,40 @@ var app ={
                 id: "bluetile"
             },
             {
-                src: "media/images/p1sheet.json",
-                id: "p1",
+                src: "media/images/GreenTile.png",
+                id: "greentile"
+            },
+            {
+                src: "media/images/YellowTile.png",
+                id: "yellowtile"
+            },
+            {
+                src: "media/images/greensheet.json",
+                id: "chammygreen",
                 type: "spritesheet",
                 crossOrigin: true
             },
             {
-                src: "media/images/p2sheet.json",
-                id: "p2",
+                src: "media/images/bluesheet.json",
+                id: "chammyblue",
                 type: "spritesheet",
                 crossOrigin: true
+            },
+            {
+                src: "media/images/redsheet.json",
+                id: "chammyred",
+                type: "spritesheet",
+                crossOrigin: true
+            },
+            {
+                src: "media/images/yellowsheet.json",
+                id: "chammyyellow",
+                type: "spritesheet",
+                crossOrigin: true
+            },
+            {
+                src: "media/images/forest.jpg",
+                id: "background"
             },
         ];
         this.assets = new createjs.LoadQueue(true);
@@ -110,7 +134,8 @@ var app ={
     
         this.gameState = eStates.TITLE;
         var stageBG = new createjs.Shape();
-        stageBG.graphics.beginFill('#AAC').drawRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        stageBG.graphics.beginBitmapFill(app.assets.getResult("background"));
+        stageBG.graphics.drawRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         this.stage.addChild(stageBG);
         // this.myGameObject = createSpriteActor(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "pig");
         // this.stage.addChild(this.myGameObject);
@@ -175,42 +200,53 @@ var app ={
             {
                 app.players[1].image.x -= 90;
                 app.keyboard.left.isPressed = false;
+                app.players[1].image.gotoAndPlay("left");
             }
             else if(app.keyboard.right.isPressed && app.players[1].image.x != 90*6+80)
             {
                app.players[1].image.x += 90;
                app.keyboard.right.isPressed = false;
+               app.players[1].image.gotoAndPlay("right");
             }
             else if(app.keyboard.up.isPressed && app.players[1].image.y != 80*1+80)
             {
                 app.players[1].image.y -= 80;
                 app.keyboard.up.isPressed = false;
+                app.players[1].image.gotoAndPlay("up");
             }
             else if(app.keyboard.down.isPressed && app.players[1].image.y != 80*5+80)
             {
                 app.players[1].image.y += 80;
                 app.keyboard.down.isPressed = false;
+                app.players[1].image.gotoAndPlay("down");
             }
 
+
+
+            
             if(app.keyboard.keyA.isPressed && app.players[0].image.x != 90*1+80)
             {
                 app.players[0].image.x -= 90;
                 app.keyboard.keyA.isPressed = false;
+                app.players[0].image.gotoAndPlay("left");
             }
             else if(app.keyboard.keyD.isPressed && app.players[0].image.x != 90*6+80)
             {
                app.players[0].image.x += 90;
                app.keyboard.keyD.isPressed = false;
+               app.players[0].image.gotoAndPlay("right");
             }
             else if(app.keyboard.keyW.isPressed && app.players[0].image.y != 80*1+80)
             {
                 app.players[0].image.y -= 80;
                 app.keyboard.keyW.isPressed = false;
+                app.players[0].image.gotoAndPlay("up");
             }
             else if(app.keyboard.keyS.isPressed && app.players[0].image.y != 80*5+80)
             {
                 app.players[0].image.y += 80;
                 app.keyboard.keyS.isPressed = false;
+                app.players[0].image.gotoAndPlay("down");
             }
             if(app.elapsedTime >= 3){
                 app.changeState(eStates.GAMEOVER);
@@ -465,8 +501,8 @@ var app ={
                     this.tiles.push(new tileActor(this.stage, "tile" + i + j, 90*i+80, 80*j+80, 10, "tile"));
                 }
             }
-            this.players.push(new playerActor(this.stage, "p1", 90*1+80, 80*3+80, 10, "p1"));
-            this.players.push(new playerActor(this.stage, "p2", 90*6+80, 80*3+80, 10, "p2"));
+            this.players.push(new playerActor(this.stage, "chammygreen", 90*1+80, 80*3+80, 10, "chammygreen"));
+            this.players.push(new playerActor(this.stage, "chammyblue", 90*6+80, 80*3+80, 10, "chammyblue"));
             console.log("Changing state to eStates.PLAY");
         }
         else if(this.gameState === eStates.GAMEOVER)
