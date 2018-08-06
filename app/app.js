@@ -222,7 +222,6 @@ var app ={
             }
 
 
-
             
             if(app.keyboard.keyA.isPressed && app.players[0].image.x != 90*1+80)
             {
@@ -248,7 +247,7 @@ var app ={
                 app.keyboard.keyS.isPressed = false;
                 app.players[0].image.gotoAndPlay("down");
             }
-            if(app.elapsedTime >= 3){
+            if(app.elapsedTime >= 10){
                 app.changeState(eStates.GAMEOVER);
                 app.timerText.visible = false;
                 app.stage.removeChild(app.playScreen);
@@ -510,9 +509,9 @@ var app ={
             let p1Count = 0;
             let p2Count = 0;
             this.tiles.forEach(function(tile){
-                if(tile.player == "p1"){
+                if(tile.player == app.players[0].nameString){
                     p1Count++;
-                }else if(tile.player == "p2"){
+                }else if(tile.player == app.players[1].nameString){
                     p2Count++;
                 }
                 tile.remove(app.stage);
