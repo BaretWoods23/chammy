@@ -492,6 +492,9 @@ var app ={
         }
         else if(this.gameState === eStates.PLAY)
         {
+            this.characterIcons.forEach(function(icon){
+                icon.remove(app.stage);
+            });
             for(let i = 1; i < 7; i++){
                 for(let j = 1; j < 6; j++){
                     this.tiles.push(new tileActor(this.stage, "tile" + i + j, 90*i+80, 80*j+80, 10, "tile"));
