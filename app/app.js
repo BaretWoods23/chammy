@@ -7,6 +7,9 @@ var app ={
     tiles: [],
     scores: [0, 0],
     players: [],
+    powerUp:null,
+    chanceForPowerup: 0,
+    powerUpAppeared: false,
     keyboard: {
         left : { keycode: 37, isPressed: false},
         up : { keycode: 38, isPressed: false},
@@ -171,6 +174,21 @@ var app ={
             app.players.forEach(function(player){
                 player.update(dt);
             });
+
+            if(app.powerUpAppeared === false);
+            {
+                app.chanceForPowerup = Math.random() * (100 - 1) + 1;
+                console.log("Powerup chance activated!");
+                console.log("Chance for powerup: " + app.chanceForPowerup );
+                
+            }
+            
+            if(app.chanceForPowerup >= 50 && app.powerUpAppeared === false){
+                
+                app.powerUpAppeared = true;
+                console.log("Powerup: " + app.powerUpAppeared);
+                //console.log("Chance for powerup: " + app.chanceForPowerup );
+            }
             if(app.keyboard.left.isPressed && app.players[1].image.x != 90*1+80)
             {
                 app.players[1].image.x -= 90;
@@ -212,7 +230,7 @@ var app ={
                 app.players[0].image.y += 80;
                 app.keyboard.keyS.isPressed = false;
             }
-            if(app.elapsedTime >= 3){
+            if(app.elapsedTime >= 1000){
                 app.changeState(eStates.GAMEOVER);
                 app.timerText.visible = false;
                 app.stage.removeChild(app.playScreen);
