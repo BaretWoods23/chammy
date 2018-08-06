@@ -51,6 +51,14 @@ var app ={
                 id: "click"
             },
             {
+                src: "media/audio/jump.mp3",
+                id: "jump"
+            },
+            {
+                src: "media/audio/downtown_rain.mp3",
+                id: "downtownrain"
+            },
+            {
                 src: "media/images/pigsheet.json",
                 id: "pig",
                 type: "spritesheet",
@@ -137,6 +145,7 @@ var app ={
         stageBG.graphics.beginBitmapFill(app.assets.getResult("background"));
         stageBG.graphics.drawRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         this.stage.addChild(stageBG);
+        var backgroundMusic = createjs.Sound.play("downtownrain", {loop: -1});
         // this.myGameObject = createSpriteActor(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "pig");
         // this.stage.addChild(this.myGameObject);
        // this.myGameObject.scale = 0.5;
@@ -201,24 +210,32 @@ var app ={
                 app.players[1].image.x -= 90;
                 app.keyboard.left.isPressed = false;
                 app.players[1].image.gotoAndPlay("left");
+                var instance = createjs.Sound.play("jump");
+                instance.volume = 0.15;
             }
             else if(app.keyboard.right.isPressed && app.players[1].image.x != 90*6+80)
             {
                app.players[1].image.x += 90;
                app.keyboard.right.isPressed = false;
                app.players[1].image.gotoAndPlay("right");
+               var instance = createjs.Sound.play("jump");
+               instance.volume = 0.15;
             }
             else if(app.keyboard.up.isPressed && app.players[1].image.y != 80*1+80)
             {
                 app.players[1].image.y -= 80;
                 app.keyboard.up.isPressed = false;
                 app.players[1].image.gotoAndPlay("up");
+                var instance = createjs.Sound.play("jump");
+               instance.volume = 0.15;
             }
             else if(app.keyboard.down.isPressed && app.players[1].image.y != 80*5+80)
             {
                 app.players[1].image.y += 80;
                 app.keyboard.down.isPressed = false;
                 app.players[1].image.gotoAndPlay("down");
+                var instance = createjs.Sound.play("jump");
+                instance.volume = 0.15;
             }
 
 
@@ -228,24 +245,32 @@ var app ={
                 app.players[0].image.x -= 90;
                 app.keyboard.keyA.isPressed = false;
                 app.players[0].image.gotoAndPlay("left");
+                var instance = createjs.Sound.play("jump");
+                instance.volume = 0.15;
             }
             else if(app.keyboard.keyD.isPressed && app.players[0].image.x != 90*6+80)
             {
                app.players[0].image.x += 90;
                app.keyboard.keyD.isPressed = false;
                app.players[0].image.gotoAndPlay("right");
+               var instance = createjs.Sound.play("jump");
+               instance.volume = 0.15;
             }
             else if(app.keyboard.keyW.isPressed && app.players[0].image.y != 80*1+80)
             {
                 app.players[0].image.y -= 80;
                 app.keyboard.keyW.isPressed = false;
                 app.players[0].image.gotoAndPlay("up");
+                var instance = createjs.Sound.play("jump");
+                instance.volume = 0.15;
             }
             else if(app.keyboard.keyS.isPressed && app.players[0].image.y != 80*5+80)
             {
                 app.players[0].image.y += 80;
                 app.keyboard.keyS.isPressed = false;
                 app.players[0].image.gotoAndPlay("down");
+                var instance = createjs.Sound.play("jump");
+                instance.volume = 0.15;
             }
             if(app.elapsedTime >= 10){
                 app.changeState(eStates.GAMEOVER);

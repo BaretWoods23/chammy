@@ -10,7 +10,14 @@ function TitleScreen(screenTitleText){
         app.stage.removeChild(app.titleScreen);
         app.stage.addChild(app.characterSelectScreen);
         app.changeState(eStates.CHARACTER_SELECT); 
-    })
+    });
+    ui.makeDefaultMuteButton(this, "♫", 40, 20, 
+        function()
+        {
+            createjs.Sound.muted = !createjs.Sound.muted;
+            this.children[0].graphics._fill.style = this.children[0].graphics._fill.style == "#fff" ? "#eee" : "#fff";
+        }
+    );
 };
 
 function InstructionScreen(screenTitleText){
