@@ -15,7 +15,7 @@ var eStates = {
 var colors = {
     default: '#957bf2',
     light: '#dad1f9',
-    dark: '#362868',
+    dark: '#f65858',
 };
 
 var defaultFont = "16px Shrikhand";

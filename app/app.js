@@ -173,7 +173,8 @@ var app ={
         this.titleScreen = new TitleScreen("Color Me Chammy!");
         this.instructionScreen = new InstructionScreen("Instructions");
         this.gameOverScreen = new GameOverScreen("GAME OVER");
-        this.playScreen = new PlayScreen("Use Arrow Keys to Move");   
+        this.playScreen = new PlayScreen("Use Arrow Keys to Move");
+        this.creditsScreen = new CreditsScreen("Credits")   
         
         //this.dataScreen = new DataScreen(this.mousePos.x, this.mousePos.y);
         this.characterSelectScreen = new CharacterSelect("Select Your Character");
