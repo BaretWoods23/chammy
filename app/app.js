@@ -10,6 +10,13 @@ var app ={
     powerUp:null,
     chanceForPowerup: 0,
     powerUpAppeared: false,
+    doubleJump:null,
+    gridCoord:{
+        x:[170,260,350,440,530,620],
+        y:[160,240,320,400,480]
+    }, 
+    xChoice:null,
+    yChoice:null,
     keyboard: {
         left : { keycode: 37, isPressed: false},
         up : { keycode: 38, isPressed: false},
@@ -113,6 +120,10 @@ var app ={
                 src: "media/images/forest.jpg",
                 id: "background"
             },
+            {
+                src: "media/images/star.png",
+                id: "star"
+            },
         ];
         this.assets = new createjs.LoadQueue(true);
 
@@ -200,8 +211,7 @@ var app ={
                 player.update(dt);
             });
 
-            if(app.powerUpAppeared === false);
-            {
+            if(app.powerUpAppeared == false){
                 app.chanceForPowerup = Math.random() * (100 - 1) + 1;
                 console.log("Powerup chance activated!");
                 console.log("Chance for powerup: " + app.chanceForPowerup );
@@ -210,9 +220,12 @@ var app ={
             
             if(app.chanceForPowerup >= 50 && app.powerUpAppeared === false){
                 
+                randomPowerupSpawn();
                 app.powerUpAppeared = true;
                 console.log("Powerup: " + app.powerUpAppeared);
-                //console.log("Chance for powerup: " + app.chanceForPowerup );
+                //170 - 620(intervals of 90), 160 - 480(intervals of 80)
+                doubleJump = new collectibleActor(app.stage,"doubleJump",530,480,10,"star");
+                
             }
             if(app.keyboard.left.isPressed && app.players[1].image.x != 90*1+80)
             {
@@ -527,6 +540,7 @@ var app ={
         {
             let p1Count = 0;
             let p2Count = 0;
+            doubleJump.remove(app.stage);
             this.tiles.forEach(function(tile){
                 if(tile.player == app.players[0].nameString){
                     p1Count++;

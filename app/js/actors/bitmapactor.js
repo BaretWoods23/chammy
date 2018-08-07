@@ -58,7 +58,7 @@ function collectibleActor(parent, nameString, x, y, r, imageID)
     bitmapActor.call(this, parent, nameString, x, y, r, imageID);
     this.onCollect = function()
     {
-     //   var pos = getRandomPointOnScreen();
+    //var pos = getRandomPointOnScreen();
       //  app.collectibles.push(new collectibleActor(app.stage, imageID, pos.x, pos.y, 25, imageID));
         app.collectibles.splice( app.collectibles.indexOf(this), 1 );
         app.stage.removeChild(this.image);
