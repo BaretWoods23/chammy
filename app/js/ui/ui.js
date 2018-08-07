@@ -49,6 +49,27 @@ var ui =
         return newButton;
     },
 
+    makeDefaultMuteButton: function(parent, text, x, y, callbackFunc)
+    {
+        var BUTTON_WIDTH = 50;
+        var BUTTON_HEIGHT = 50;
+
+        var newButton = new createjs.Container();
+        newButton.x = x - BUTTON_WIDTH / 2;
+        newButton.y = y;
+        parent.addChild(newButton);
+
+        var shape = new createjs.Shape();
+        shape.graphics.beginFill('#fff').drawRect(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
+        newButton.addChild(shape);
+
+        var text = this.makeDefaultText(newButton, text, BUTTON_WIDTH / 2, BUTTON_HEIGHT / 2);
+
+        newButton.on("mousedown", callbackFunc);
+
+        return newButton;
+    },
+
     addDefaultBox: function(parent,x,y)
     {
         var BOX_WIDTH = 100;
@@ -70,7 +91,6 @@ var ui =
             shape.graphics.setStrokeStyle(5);
             shape.snapToPixel = true;
             this.charOneNum = playerNum;
-
             shape.graphics.beginFill("#000").drawRect(x,y, BOX_WIDTH, BOX_HEIGHT);
         }
         else if(playerNum == 2){
