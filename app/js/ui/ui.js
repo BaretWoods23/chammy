@@ -39,7 +39,28 @@ var ui =
         parent.addChild(newButton);
 
         var shape = new createjs.Shape();
-        shape.graphics.beginFill('#FFF').drawRect(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
+        shape.graphics.beginFill('rgba(255, 255, 255, .7)').drawRect(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
+        newButton.addChild(shape);
+
+        var text = this.makeDefaultText(newButton, text, BUTTON_WIDTH / 2, BUTTON_HEIGHT / 2);
+
+        newButton.on("mousedown", callbackFunc);
+
+        return newButton;
+    },
+
+    makeDefaultMuteButton: function(parent, text, x, y, callbackFunc)
+    {
+        var BUTTON_WIDTH = 50;
+        var BUTTON_HEIGHT = 50;
+
+        var newButton = new createjs.Container();
+        newButton.x = x - BUTTON_WIDTH / 2;
+        newButton.y = y;
+        parent.addChild(newButton);
+
+        var shape = new createjs.Shape();
+        shape.graphics.beginFill('#fff').drawRect(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
         newButton.addChild(shape);
 
         var text = this.makeDefaultText(newButton, text, BUTTON_WIDTH / 2, BUTTON_HEIGHT / 2);

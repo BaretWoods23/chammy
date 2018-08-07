@@ -10,7 +10,18 @@ function TitleScreen(screenTitleText){
         app.stage.removeChild(app.titleScreen);
         app.stage.addChild(app.characterSelectScreen);
         app.changeState(eStates.CHARACTER_SELECT); 
+    });
+    ui.makeDefaultTextButton(this, "Credits", SCREEN_WIDTH/2, 500, function(){
+        app.stage.removeChild(app.titleScreen);
+        app.stage.addChild(app.creditsScreen)
     })
+    ui.makeDefaultMuteButton(this, "♫", 40, 20, 
+        function()
+        {
+            createjs.Sound.muted = !createjs.Sound.muted;
+            this.children[0].graphics._fill.style = this.children[0].graphics._fill.style == "#fff" ? "#eee" : "#fff";
+        }
+    );
 };
 
 function InstructionScreen(screenTitleText){
@@ -159,6 +170,23 @@ function CharacterSelect(screenTitleText){
     this.addChild(charFourNumText);
 };
 
+function CreditsScreen(screenTitleText){
+    createjs.Container.call(this);
+
+    var backdrop = new createjs.Shape();
+    backdrop.graphics.beginFill('rgba(218, 209, 200, .7)').drawRect(50, 50, 700, 500);
+    this.addChild(backdrop);
+
+    ui.makeTitleText(this, screenTitleText, SCREEN_WIDTH/2, 90);
+    ui.makeDefaultText(this, "Game Director/Lead Designer          Baret Woods", SCREEN_WIDTH/2, 200);
+    ui.makeDefaultText(this, "Code Monkeys          Daniel Carapia, Joseph Wunz", SCREEN_WIDTH/2, 300);
+    ui.makeDefaultText(this, "Artist/Cheerleader          Esteban Alba", SCREEN_WIDTH/2, 400);
+    ui.makeDefaultTextButton(this, "Back", SCREEN_WIDTH/2, 475, function() {
+        app.stage.removeChild(app.creditsScreen);
+        app.stage.addChild(app.titleScreen);
+    });
+};
+
 TitleScreen.prototype = Object.create(createjs.Container.prototype);
 TitleScreen.prototype.constructor = Screen;
 
@@ -176,3 +204,6 @@ GameOverScreen.prototype.constructor = Screen;
 
 CharacterSelect.prototype = Object.create(createjs.Container.prototype);
 CharacterSelect.prototype.constructor = Screen;
+
+CreditsScreen.prototype = Object.create(createjs.Container.prototype);
+CreditsScreen.prototype.constructor = Screen;
