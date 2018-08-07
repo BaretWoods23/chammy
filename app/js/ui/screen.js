@@ -165,14 +165,19 @@ function CharacterSelect(screenTitleText){
 
 function CreditsScreen(screenTitleText){
     createjs.Container.call(this);
-    ui.makeTitleText(this, screenTitleText, SCREEN_WIDTH/2, 75);
+
+    var backdrop = new createjs.Shape();
+    backdrop.graphics.beginFill('rgba(218, 209, 200, .7)').drawRect(50, 50, 700, 500);
+    this.addChild(backdrop);
+
+    ui.makeTitleText(this, screenTitleText, SCREEN_WIDTH/2, 90);
     ui.makeDefaultText(this, "Game Director/Lead Designer          Baret Woods", SCREEN_WIDTH/2, 200);
     ui.makeDefaultText(this, "Code Monkeys          Daniel Carapia, Joseph Wunz", SCREEN_WIDTH/2, 300);
     ui.makeDefaultText(this, "Artist/Cheerleader          Esteban Alba", SCREEN_WIDTH/2, 400);
-    ui.makeDefaultTextButton(this, "Back", SCREEN_WIDTH/2, 525, function() {
+    ui.makeDefaultTextButton(this, "Back", SCREEN_WIDTH/2, 475, function() {
         app.stage.removeChild(app.creditsScreen);
         app.stage.addChild(app.titleScreen);
-    })
+    });
 };
 
 TitleScreen.prototype = Object.create(createjs.Container.prototype);

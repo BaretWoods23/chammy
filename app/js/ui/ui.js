@@ -39,7 +39,7 @@ var ui =
         parent.addChild(newButton);
 
         var shape = new createjs.Shape();
-        shape.graphics.beginFill('#FFF').drawRect(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
+        shape.graphics.beginFill('rgba(255, 255, 255, .7)').drawRect(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
         newButton.addChild(shape);
 
         var text = this.makeDefaultText(newButton, text, BUTTON_WIDTH / 2, BUTTON_HEIGHT / 2);
